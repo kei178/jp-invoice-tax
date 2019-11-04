@@ -13,7 +13,7 @@
           <input type="number" v-model="sales" placeholder="円" min="0" autofocus>
         </div>
         <div class="field">
-          <label>必要経費</label>
+          <label>年間経費</label>
           <input type="number" v-model="cost" placeholder="円" min="0">
         </div>
         <div class="field">
