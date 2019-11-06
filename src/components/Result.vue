@@ -1,12 +1,12 @@
 <template>
   <div class="ui segment basic center aligned">
-    <h2>最大節税額</h2>
+    <h2>手取り増加額</h2>
     <div v-if="isCalculatable">
       <div class="ui statistic blue">
         <div class="value">¥{{ result | formatNumber }}</div>
         <div class="label">① - {{ minResultNum }}</div>
       </div>
-      <h4>インボイス制度後</h4>
+      <h4>インボイス制度後</h4> 
       <table class="ui celled table">
         <thead>
           <tr>
@@ -14,7 +14,7 @@
             <th class="three wide">請求額減</th>
             <th class="three wide">消費税納付</th>
             <th class="three wide">所得/住民/事業</th>
-            <th class="three wide">影響額</th>  
+            <th class="three wide">差引手取り</th>  
           </tr>
         </thead>  
         <tbody>
@@ -60,7 +60,12 @@
 </template>
 
 <script>
-const CONSUMPTION_TAX_RATE = 0.1
+const CONSUMPTION_TAX_RATE = 0.1,
+      CONSUMPTION_TAX_EXEMPT_SALES_LIMIT = 10000000,
+      RESIDENT_TAX_RATE = 0.1,
+      BUSINESS_TAX_RATE = 0.05, // 一般的な5%のみで計算
+      BUSIBESS_TAX_DEDUCTION = 2900000
+
 export default {
   data() {
     return {
@@ -75,21 +80,56 @@ export default {
     calcConsumptionTax(amount) {
       return amount - amount / (1 + CONSUMPTION_TAX_RATE)
     },
-    calcTaxableIncome() {
-      return 0
+    incomeTaxImpact(incomeChange) {
+      const income = this.incomeTaxTaxableIncome + incomeChange
+      if(income > 0) {
+        return incomeChange * this.incomeTaxRate
+      } else {
+        return 0
+      }
+    },
+    residentTaxImpact(incomeChange) {
+      const income = this.incomeTaxTaxableIncome + incomeChange
+      if(income > 0) {
+        return incomeChange * RESIDENT_TAX_RATE
+      } else {
+        return 0
+      }
+    },
+    businessTaxImpact(incomeChange) {
+      const income = this.businessTaxTaxableIncome + incomeChange 
+      if(income > 0) {
+        return incomeChange * BUSINESS_TAX_RATE
+      } else {
+        return 0
+      }
     }
   },
   computed: {
-    // 設定値
+    // 設定値 
     sales() {
       return this.$store.getters.entries.sales
     },  
     cost() {
       return this.$store.getters.entries.cost
     },
+    otherIncome() {
+      return this.$store.getters.entries.otherIncome
+    },
+    taxReduction() {
+      return this.$store.getters.entries.taxReduction
+    },
     selectedBiz() {
       return this.$store.getters.entries.selectedBiz
-    },  
+    },
+    blueTaxDeduction() {
+      return this.$store.getters.entries.blueTaxDeduction
+    },
+
+    // 共通 - 消費税
+    isCalculatable() {
+      return this.sales < CONSUMPTION_TAX_EXEMPT_SALES_LIMIT
+    },
     salesCosumptionTax() {
       return this.calcConsumptionTax(this.sales)
     },
@@ -97,9 +137,36 @@ export default {
       return this.calcConsumptionTax(this.cost)
     },
     
-    // 設定値判定
-    isCalculatable() {
-      return this.sales < 10000000
+    // 共通 - 所得税
+    bizIncomeTaxableIncome() {
+      return this.sales - this.cost - this.blueTaxDeduction 
+    },
+    incomeTaxTaxableIncome() {
+      return (this.bizIncomeTaxableIncome + this.otherIncome) - this.taxReduction
+    },
+    incomeTaxRate() {
+      const income = this.incomeTaxTaxableIncome
+      // 税率: 平成27年分以降
+      if(income <= 1950000) {
+        return 0.05
+      } else if(income <= 3300000) {
+        return 0.10
+      } else if(income <= 6950000) {
+        return 0.20
+      } else if(income <= 9000000) {
+        return 0.23
+      } else if(income <= 18000000) {
+        return 0.33
+      } else if(income <= 40000000) {
+        return 0.40
+      } else {
+        return 0.45
+      }
+    },
+    
+    // 共通 - 事業税
+    businessTaxTaxableIncome() {
+      return this.sales - this.cost - BUSIBESS_TAX_DEDUCTION
     },
 
     // 対策なし（免税）
@@ -155,13 +222,13 @@ export default {
       )
     },
     taxBizIncomTax() {
-      return 0
+      return this.incomeTaxImpact(-this.taxBizConsumptionTax)
     },
     taxBizResidentTax() {
-      return 0
+      return this.residentTaxImpact(-this.taxBizConsumptionTax)
     },
     taxBizBusinessTax() {
-      return 0
+      return this.businessTaxImpact(-this.taxBizConsumptionTax)
     },
 
     // 簡易課税事業者
@@ -179,7 +246,20 @@ export default {
       return this.salesCosumptionTax * this.selectedBiz
     },
     simpleTaxBizOtherTaxes() {
-      return 0
+      return (
+        this.simpleTaxBizIncomTax +
+          this.simpleTaxBizResidentTax +
+          this.simpleTaxBizBusinessTax
+      )
+    },
+    simpleTaxBizIncomTax() {
+      return this.incomeTaxImpact(-this.simpleTaxBizConsumptionTax)
+    },
+    simpleTaxBizResidentTax() {
+      return this.residentTaxImpact(-this.simpleTaxBizConsumptionTax)
+    },
+    simpleTaxBizBusinessTax() {
+      return this.businessTaxImpact(-this.simpleTaxBizConsumptionTax)
     },
     
     // 計算結果
