@@ -10,11 +10,18 @@
       <div class="three fields">
         <div class="field">
           <label>年間売上</label>
-          <input type="number" v-model="sales" placeholder="円" min="0" autofocus>
+          <vue-numeric 
+            v-model="sales" 
+            currency="¥" 
+            v-bind:min="0"
+            autofocus></vue-numeric>
         </div>
         <div class="field">
           <label>年間経費</label>
-          <input type="number" v-model="cost" placeholder="円" min="0">
+          <vue-numeric 
+            v-model="cost" 
+            currency="¥" 
+            v-bind:min="0"></vue-numeric>
         </div>
         <div class="field">
           <label>業種（簡易課税用）</label>
@@ -34,15 +41,25 @@
       <div class="three fields">
         <div class="field">
           <label>青色申告控除</label>
-          <input type="number" placeholder="円" :value="blueTaxDeduction" readonly>
+          <vue-numeric 
+            v-model="blueTaxDeduction" 
+            currency="¥" 
+            v-bind:min="650000"
+            readonly></vue-numeric>
         </div>
         <div class="field">
           <label>事業以外の所得（任意）</label>
-          <input type="number" v-model="otherIncome" placeholder="円" min="0">
+          <vue-numeric 
+            v-model="otherIncome" 
+            currency="¥" 
+            v-bind:min="0"></vue-numeric>
         </div>
         <div class="field">
           <label>税額控除</label>
-          <input type="number" v-model="taxReduction" placeholder="円" min="380000">
+          <vue-numeric 
+            v-model="taxReduction" 
+            currency="¥" 
+            v-bind:min="380000"></vue-numeric>
         </div>
       </div>
     </div>
@@ -50,6 +67,8 @@
 </template>
 
 <script>
+import VueNumeric from 'vue-numeric'
+
 export default {
   data() {
     return {
@@ -62,21 +81,24 @@ export default {
       blueTaxDeduction: this.$store.getters.entries.blueTaxDeduction
     }
   },
+  components: {
+    VueNumeric
+  },
   watch: {
     sales: function() {
-      this.updateEntries();
+      this.updateEntries()
     },
     cost: function() {
-      this.updateEntries();
+      this.updateEntries()
     },
     selectedBiz: function() {
-      this.updateEntries();
+      this.updateEntries()
     },
     otherIncome: function() {
-      this.updateEntries();
+      this.updateEntries()
     },
     taxReduction: function() {
-      this.updateEntries();
+      this.updateEntries()
     },
   },
   methods: {
@@ -88,7 +110,7 @@ export default {
         bizOpts:      this.bizOpts,
         otherIncome:  this.otherIncome,
         taxReduction: this.taxReduction  
-      });
+      })
     }
   }
 }
