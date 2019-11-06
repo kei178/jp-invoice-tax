@@ -6,7 +6,7 @@
         <div class="value">¥{{ result | formatNumber }}</div>
         <div class="label">① - {{ minResultNum }}</div>
       </div>
-      <h4>インボイス制度後</h4> 
+      <h4>インボイス制度後（2023年10月〜）</h4> 
       <table class="ui celled table">
         <thead>
           <tr>
@@ -14,37 +14,43 @@
             <th class="three wide">請求額減</th>
             <th class="three wide">消費税納付</th>
             <th class="three wide">所得/住民/事業</th>
-            <th class="three wide">差引手取り</th>  
+            <th class="three wide">手取り減</th>  
           </tr>
-        </thead>  
+        </thead>
         <tbody>
           <tr>
             <td>対策なし（免税）</td>
-            <td>¥ {{ taxExemptIncomeCut | formatNumber }}</td>
-            <td>¥ {{ taxExemptConsumptionTax | formatNumber }}</td>
-            <td>¥ {{ taxExemptOtherTaxes | formatNumber }}</td>
+            <td :style="{color: numColor(taxExemptIncomeCut)}">¥ {{ taxExemptIncomeCut | formatNumber }}</td>
+            <td :style="{color: numColor(taxExemptConsumptionTax)}">¥ {{ taxExemptConsumptionTax | formatNumber }}</td>
+            <td :style="{color: numColor(taxExemptOtherTaxes)}">¥ {{ taxExemptOtherTaxes | formatNumber }}</td>
             <td>
-              <strong>¥ {{ taxExemptImpact | formatNumber }}</strong>
+              <span :style="{color: numColor(taxExemptImpact)}">
+                <strong>¥ {{ taxExemptImpact | formatNumber }}</strong>
+              </span>
               <small> ①</small>
             </td>
           </tr> 
           <tr>
             <td>課税事業者</td>
-            <td>¥ {{ taxBizIncomeCut | formatNumber }}</td>
-            <td>¥ {{ taxBizConsumptionTax | formatNumber }}</td>
-            <td>¥ {{ taxBizOtherTaxes | formatNumber }}</td>
+            <td :style="{color: numColor(taxBizIncomeCut)}">¥ {{ taxBizIncomeCut | formatNumber }}</td>
+            <td :style="{color: numColor(taxBizConsumptionTax)}">¥ {{ taxBizConsumptionTax | formatNumber }}</td>
+            <td :style="{color: numColor(taxBizOtherTaxes)}">¥ {{ taxBizOtherTaxes | formatNumber }}</td>
             <td>
-              <strong>¥ {{ taxBizImpact | formatNumber }}</strong>
+              <span :style="{color: numColor(taxBizImpact)}">
+                <strong>¥ {{ taxBizImpact | formatNumber }}</strong>
+              </span>
               <small> ②</small>
             </td>
           </tr>
           <tr>
             <td>簡易課税事業者</td>
-            <td>¥ {{ simpleTaxBizIncomeCut | formatNumber }}</td>
-            <td>¥ {{ simpleTaxBizConsumptionTax | formatNumber }}</td>
-            <td>¥ {{ simpleTaxBizOtherTaxes | formatNumber }}</td>
-            <td>
-              <strong>¥ {{ simpleTaxBizImpact | formatNumber }}</strong>
+            <td :style="{color: numColor(simpleTaxBizIncomeCut)}">¥ {{ simpleTaxBizIncomeCut | formatNumber }}</td>
+            <td :style="{color: numColor(simpleTaxBizConsumptionTax)}">¥ {{ simpleTaxBizConsumptionTax | formatNumber }}</td>
+            <td :style="{color: numColor(simpleTaxBizOtherTaxes)}">¥ {{ simpleTaxBizOtherTaxes | formatNumber }}</td>
+             <td>
+              <span :style="{color: numColor(simpleTaxBizImpact)}">
+                <strong>¥ {{ simpleTaxBizImpact | formatNumber }}</strong>
+              </span>
               <small> ③</small>
             </td>
           </tr>
@@ -71,6 +77,15 @@ export default {
     }
   },
   methods: {  
+    numColor(num) {
+      if(num > 0) {
+        return '#db2828'
+      } else if(num == 0) {
+        return 'grey'
+      } else {
+        return '#2185d0'
+      }
+    },
     calcConsumptionTax(amount) {
       return amount - amount / (1 + CONSUMPTION_TAX_RATE)
     },
@@ -262,7 +277,7 @@ export default {
       return this.taxExemptImpact - Math.min.apply(0,arr)
     },
     minResultNum() {
-      return this.taxBizImpact > this.simpleTaxBizImpact ? '②' : '③'
+      return this.taxBizImpact > this.simpleTaxBizImpact ? '③' : '②'
     }
   }
 }
