@@ -34,7 +34,7 @@
       <div class="three fields">
         <div class="field">
           <label>青色申告控除</label>
-          <input type="number" placeholder="円" value="650000" readonly>
+          <input type="number" placeholder="円" :value="blueTaxDeduction" readonly>
         </div>
         <div class="field">
           <label>事業以外の所得（任意）</label>
@@ -58,7 +58,8 @@ export default {
       selectedBiz:  this.$store.getters.entries.selectedBiz,
       bizOpts:      this.$store.getters.entries.bizOpts,
       otherIncome:  this.$store.getters.entries.otherIncome,
-      taxReduction: this.$store.getters.entries.taxReduction  
+      taxReduction: this.$store.getters.entries.taxReduction,
+      blueTaxDeduction: this.$store.getters.entries.blueTaxDeduction
     }
   },
   watch: {
