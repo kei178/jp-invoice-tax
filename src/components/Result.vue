@@ -20,31 +20,31 @@
         <tbody>
           <tr>
             <td>対策なし（免税）</td>
-            <td>{{ taxExemptIncomeCut | formatNumber }}</td>
-            <td>{{ taxExemptConsumptionTax | formatNumber }}</td>
-            <td>{{ taxExemptOtherTaxes | formatNumber }}</td>
+            <td>¥ {{ taxExemptIncomeCut | formatNumber }}</td>
+            <td>¥ {{ taxExemptConsumptionTax | formatNumber }}</td>
+            <td>¥ {{ taxExemptOtherTaxes | formatNumber }}</td>
             <td>
-              <strong>{{ taxExemptImpact | formatNumber }}</strong>
+              <strong>¥ {{ taxExemptImpact | formatNumber }}</strong>
               <small> ①</small>
             </td>
           </tr> 
           <tr>
             <td>課税事業者</td>
-            <td>{{ taxBizIncomeCut | formatNumber }}</td>
-            <td>{{ taxBizConsumptionTax | formatNumber }}</td>
-            <td>{{ taxBizOtherTaxes | formatNumber }}</td>
+            <td>¥ {{ taxBizIncomeCut | formatNumber }}</td>
+            <td>¥ {{ taxBizConsumptionTax | formatNumber }}</td>
+            <td>¥ {{ taxBizOtherTaxes | formatNumber }}</td>
             <td>
-              <strong>{{ taxBizImpact | formatNumber }}</strong>
+              <strong>¥ {{ taxBizImpact | formatNumber }}</strong>
               <small> ②</small>
             </td>
           </tr>
           <tr>
             <td>簡易課税事業者</td>
-            <td>{{ simpleTaxBizIncomeCut | formatNumber }}</td>
-            <td>{{ simpleTaxBizConsumptionTax | formatNumber }}</td>
-            <td>{{ simpleTaxBizOtherTaxes | formatNumber }}</td>
+            <td>¥ {{ simpleTaxBizIncomeCut | formatNumber }}</td>
+            <td>¥ {{ simpleTaxBizConsumptionTax | formatNumber }}</td>
+            <td>¥ {{ simpleTaxBizOtherTaxes | formatNumber }}</td>
             <td>
-              <strong>{{ simpleTaxBizImpact | formatNumber }}</strong>
+              <strong>¥ {{ simpleTaxBizImpact | formatNumber }}</strong>
               <small> ③</small>
             </td>
           </tr>
@@ -52,8 +52,7 @@
       </table>
     </div>
     <div v-else>
-      あなたは既に課税事業者です。
-      <br>
+      <p>あなたは既に課税事業者です。</p>
       <small>（売上1000万円超）</small>
     </div>
   </div>
@@ -70,11 +69,6 @@ export default {
   data() {
     return {
     }
-  },
-  filters: {
-    formatNumber(value) {
-      return String(Math.floor(value)).replace( /(\d)(?=(\d\d\d)+(?!\d))/g, '$1,')
-    } 
   },
   methods: {  
     calcConsumptionTax(amount) {
