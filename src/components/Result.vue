@@ -1,66 +1,73 @@
 <template>
   <div class="ui segment basic center aligned">
     <h2>手取り増加額</h2>
-    <div v-if="isCalculatable">
-      <div class="ui statistic blue">
-        <div class="value">¥{{ result | formatNumber }}</div>
-        <div class="label">① - {{ minResultNum }}</div>
-      </div>
-      <h4>インボイス制度後（2023年10月〜）</h4> 
-      <table class="ui celled table">
-        <thead>
-          <tr>
-            <th class="four wide">対策</th>
-            <th class="three wide">請求額減</th>
-            <th class="three wide">消費税納付</th>
-            <th class="three wide">所得/住民/事業</th>
-            <th class="three wide">手取り減</th>  
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>対策なし（免税）</td>
-            <td :style="{color: numColor(taxExemptIncomeCut)}">¥ {{ taxExemptIncomeCut | formatNumber }}</td>
-            <td :style="{color: numColor(taxExemptConsumptionTax)}">¥ {{ taxExemptConsumptionTax | formatNumber }}</td>
-            <td :style="{color: numColor(taxExemptOtherTaxes)}">¥ {{ taxExemptOtherTaxes | formatNumber }}</td>
-            <td>
-              <span :style="{color: numColor(taxExemptImpact)}">
-                <strong>¥ {{ taxExemptImpact | formatNumber }}</strong>
-              </span>
-              <small> ①</small>
-            </td>
-          </tr> 
-          <tr>
-            <td>課税事業者</td>
-            <td :style="{color: numColor(taxBizIncomeCut)}">¥ {{ taxBizIncomeCut | formatNumber }}</td>
-            <td :style="{color: numColor(taxBizConsumptionTax)}">¥ {{ taxBizConsumptionTax | formatNumber }}</td>
-            <td :style="{color: numColor(taxBizOtherTaxes)}">¥ {{ taxBizOtherTaxes | formatNumber }}</td>
-            <td>
-              <span :style="{color: numColor(taxBizImpact)}">
-                <strong>¥ {{ taxBizImpact | formatNumber }}</strong>
-              </span>
-              <small> ②</small>
-            </td>
-          </tr>
-          <tr>
-            <td>簡易課税事業者</td>
-            <td :style="{color: numColor(simpleTaxBizIncomeCut)}">¥ {{ simpleTaxBizIncomeCut | formatNumber }}</td>
-            <td :style="{color: numColor(simpleTaxBizConsumptionTax)}">¥ {{ simpleTaxBizConsumptionTax | formatNumber }}</td>
-            <td :style="{color: numColor(simpleTaxBizOtherTaxes)}">¥ {{ simpleTaxBizOtherTaxes | formatNumber }}</td>
-             <td>
-              <span :style="{color: numColor(simpleTaxBizImpact)}">
-                <strong>¥ {{ simpleTaxBizImpact | formatNumber }}</strong>
-              </span>
-              <small> ③</small>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div v-else>
-      <p>あなたは既に課税事業者です。</p>
-      <small>（売上1000万円超）</small>
-    </div>
+    <transition name="fade" mode="out-in">
+      <template v-if="isCalculatable">
+        <div>
+          <div class="ui statistic blue">
+            <div class="value">¥{{ result | formatNumber }}</div>
+            <div class="label">① - {{ minResultNum }}</div>
+          </div>
+          <p>年収減10% → {{ incomeCutRate }}%</p>
+          <h4>インボイス制度後（2023年10月〜）</h4>
+          <table class="ui celled table">
+            <thead>
+              <tr>
+                <th class="four wide">対策</th>
+                <th class="three wide">請求額減</th>
+                <th class="three wide">消費税納付</th>  
+                <th class="three wide">所得/住民/事業</th>
+                <th class="three wide">手取り減</th>  
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>対策なし（免税）</td>
+                <td :style="{color: numColor(taxExemptIncomeCut)}">¥ {{ taxExemptIncomeCut | formatNumber }}</td>
+                <td :style="{color: numColor(taxExemptConsumptionTax)}">¥ {{ taxExemptConsumptionTax | formatNumber }}</td>
+                <td :style="{color: numColor(taxExemptOtherTaxes)}">¥ {{ taxExemptOtherTaxes | formatNumber }}</td>
+                <td>
+                  <span :style="{color: numColor(taxExemptImpact)}">
+                    <strong>¥ {{ taxExemptImpact | formatNumber }}</strong>
+                  </span>
+                  <small> ①</small>
+                </td>
+              </tr> 
+              <tr>
+                <td>課税事業者</td>
+                <td :style="{color: numColor(taxBizIncomeCut)}">¥ {{ taxBizIncomeCut | formatNumber }}</td>
+                <td :style="{color: numColor(taxBizConsumptionTax)}">¥ {{ taxBizConsumptionTax | formatNumber }}</td>
+                <td :style="{color: numColor(taxBizOtherTaxes)}">¥ {{ taxBizOtherTaxes | formatNumber }}</td>
+                <td>
+                  <span :style="{color: numColor(taxBizImpact)}">
+                    <strong>¥ {{ taxBizImpact | formatNumber }}</strong>
+                  </span>
+                  <small> ②</small>
+                </td>
+              </tr>
+              <tr>
+                <td>簡易課税事業者</td>
+                <td :style="{color: numColor(simpleTaxBizIncomeCut)}">¥ {{ simpleTaxBizIncomeCut | formatNumber }}</td>
+                <td :style="{color: numColor(simpleTaxBizConsumptionTax)}">¥ {{ simpleTaxBizConsumptionTax | formatNumber }}</td>
+                <td :style="{color: numColor(simpleTaxBizOtherTaxes)}">¥ {{ simpleTaxBizOtherTaxes | formatNumber }}</td>
+                <td>
+                  <span :style="{color: numColor(simpleTaxBizImpact)}">
+                    <strong>¥ {{ simpleTaxBizImpact | formatNumber }}</strong>
+                  </span>
+                  <small> ③</small>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </template>
+      <template v-else>
+        <p>
+          あなたは既に課税事業者です。<br>
+          <small>（売上1000万円超）</small>
+        </p>
+      </template>
+    </transition>
   </div>
 </template>
 
@@ -81,7 +88,7 @@ export default {
       if(num > 0) {
         return '#db2828'
       } else if(num == 0) {
-        return 'grey'
+        return '#dddddd'
       } else {
         return '#2185d0'
       }
@@ -278,6 +285,9 @@ export default {
     },
     minResultNum() {
       return this.taxBizImpact > this.simpleTaxBizImpact ? '③' : '②'
+    },
+    incomeCutRate () {
+      return ((this.result / this.sales) * 100).toFixed(1)
     }
   }
 }
