@@ -5,7 +5,6 @@
       あなたの情報を入力してください
       <i class="hand point down outline icon"></i>
     </p>
-
     <div class="ui form">
       <div class="three fields">
         <div class="field">
