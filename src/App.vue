@@ -3,19 +3,30 @@
     <instruction></instruction>
     <calculator></calculator>
     <result></result>
+    <div class="ui divider hidden"></div>
+    <div class="ui divider"></div>
+    <donation></donation>
+    <contact></contact>
+    <twitter></twitter>
   </div>
-</template>
+</template> 
 
 <script>
-import Instruction from './components/Instruction.vue'; 
-import Calculator from './components/Calculator.vue'; 
-import Result from './components/Result.vue'; 
+import Instruction  from './components/Instruction.vue'; 
+import Calculator   from './components/Calculator.vue'; 
+import Result       from './components/Result.vue'; 
+import Donation     from './components/Donation.vue';
+import Contact      from './components/Contact.vue';
+import Twitter      from './components/Twitter.vue';
 
 export default {
   components: {
-    Instruction,
+    Instruction,  
     Calculator,
-    Result
+    Result,
+    Contact,
+    Donation,
+    Twitter
   },
   created() {
     this.$store.dispatch('initEntries')
