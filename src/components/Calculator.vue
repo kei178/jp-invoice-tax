@@ -8,15 +8,29 @@
     <div class="ui form">
       <div class="three fields">
         <div class="field">
-          <label>年間売上</label>
+          <label>
+            年間売上
+            <span 
+              data-inverted=""
+              data-tooltip="青色申告決算書の「売上（収入）金額」">
+              <i class="info circle icon"></i>
+            </span>
+          </label>
           <vue-numeric 
             v-model="sales" 
             currency="¥" 
             v-bind:min="0"
             autofocus></vue-numeric>
         </div>
-        <div class="field">
-          <label>年間経費</label>
+        <div class="field"> 
+          <label>
+            年間経費
+            <span 
+              data-inverted=""
+              data-tooltip="青色申告決算書の「経費」計">
+              <i class="info circle icon"></i>
+            </span>
+          </label>
           <vue-numeric 
             v-model="cost" 
             currency="¥" 
@@ -54,7 +68,14 @@
             v-bind:min="0"></vue-numeric>
         </div>
         <div class="field">
-          <label>税額控除</label>
+          <label>
+            所得控除
+            <span 
+              data-inverted=""
+              data-tooltip="確定申告書Bの「所得から差し引かれる金額」の合計">
+              <i class="info circle icon"></i>
+            </span>
+          </label>
           <vue-numeric 
             v-model="taxReduction" 
             currency="¥" 
@@ -113,4 +134,4 @@ export default {
     }
   }
 }
-</script>
+</script> 

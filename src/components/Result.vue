@@ -8,7 +8,12 @@
             <div class="value">¥{{ result | formatNumber }}</div>
             <div class="label">① - {{ minResultNum }}</div>
           </div>
-          <p>年収減10% → {{ incomeCutRate }}%</p>
+          <p>
+            年収減10%
+            <span v-show="sales > 0">
+              <i class="long arrow alternate small right icon"></i>{{ incomeCutRate }}%
+            </span> 
+          </p>
           <h4>インボイス制度後（2023年10月〜）</h4>
           <table class="ui celled table">
             <thead>
