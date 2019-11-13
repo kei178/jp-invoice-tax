@@ -163,3 +163,9 @@ export default {
   }
 }
 </script> 
+
+<style scoped>
+  i.icon {
+    color:darkgrey;
+  }
+</style>
