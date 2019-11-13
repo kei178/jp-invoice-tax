@@ -80,7 +80,6 @@
 const CONSUMPTION_TAX_RATE = 0.1,
       CONSUMPTION_TAX_EXEMPT_SALES_LIMIT = 10000000,
       RESIDENT_TAX_RATE = 0.1,
-      BUSINESS_TAX_RATE = 0.05, // 一般的な5%のみで計算
       BUSIBESS_TAX_DEDUCTION = 2900000
 
 export default {
@@ -98,75 +97,8 @@ export default {
         return '#2185d0'
       }
     },
-    calcConsumptionTax(amount) {
-      return amount - amount / (1 + CONSUMPTION_TAX_RATE)
-    },
-    incomeTaxImpact(incomeChange) {
-      const income = this.incomeTaxTaxableIncome + incomeChange
-      if(income > 0) {
-        return incomeChange * this.incomeTaxRate
-      } else {
-        return 0
-      }
-    },
-    residentTaxImpact(incomeChange) {
-      const income = this.incomeTaxTaxableIncome + incomeChange
-      if(income > 0) {
-        return incomeChange * RESIDENT_TAX_RATE
-      } else {
-        return 0
-      }
-    },
-    businessTaxImpact(incomeChange) {
-      const income = this.businessTaxTaxableIncome + incomeChange 
-      if(income > 0) {
-        return incomeChange * BUSINESS_TAX_RATE
-      } else {
-        return 0
-      }
-    }
-  },
-  computed: {
-    // 設定値 
-    sales() {
-      return this.$store.getters.entries.sales
-    },  
-    cost() {
-      return this.$store.getters.entries.cost
-    },
-    otherIncome() {
-      return this.$store.getters.entries.otherIncome
-    },
-    taxReduction() {
-      return this.$store.getters.entries.taxReduction
-    },
-    selectedBiz() {
-      return this.$store.getters.entries.selectedBiz
-    },
-    blueTaxDeduction() {
-      return this.$store.getters.entries.blueTaxDeduction
-    },
-
-    // 共通 - 消費税
-    isCalculatable() {
-      return this.sales < CONSUMPTION_TAX_EXEMPT_SALES_LIMIT
-    },
-    salesCosumptionTax() {
-      return this.calcConsumptionTax(this.sales)
-    },
-    costCosumptionTax() {
-      return this.calcConsumptionTax(this.cost)
-    },
-    
     // 共通 - 所得税
-    bizIncomeTaxableIncome() {
-      return this.sales - this.cost - this.blueTaxDeduction 
-    },
-    incomeTaxTaxableIncome() {
-      return (this.bizIncomeTaxableIncome + this.otherIncome) - this.taxReduction
-    },
-    incomeTaxRate() {
-      const income = this.incomeTaxTaxableIncome
+    incomeTaxRate(income) {
       // 税率: 平成27年分以降
       if(income <= 1950000) {
         return 0.05
@@ -184,10 +116,69 @@ export default {
         return 0.45
       }
     },
+    calcConsumptionTax(amount) {
+      return amount - (amount / (1 + CONSUMPTION_TAX_RATE))
+    },
+    incomeTaxImpact(incomeChange) {
+      const income = this.taxableIncome + incomeChange
+      if(income > 0) {
+        return incomeChange * this.incomeTaxRate(income)
+      } else {
+        return 0
+      }
+    },
+    residentTaxImpact(incomeChange) {
+      const income = this.taxableIncome + incomeChange
+      if(income > 0) {
+        return incomeChange * RESIDENT_TAX_RATE
+      } else {
+        return 0
+      }
+    },
+    businessTaxImpact(incomeChange) {
+      const income = this.businessTaxTaxableIncome + incomeChange 
+      if(income > 0) {
+        return incomeChange * this.selectedBizTaxRate
+      } else {
+        return 0
+      }
+    }
+  },
+  computed: {
+    // 設定値 
+    sales() {
+      return this.$store.getters.entries.sales
+    },  
+    cost() {
+      return this.$store.getters.entries.cost
+    },
+    taxableIncome() {
+      return this.$store.getters.entries.taxableIncome
+    },
+    realEstateIncome() {
+      return this.$store.getters.entries.realEstateIncome
+    },
+    selectedBiz() {
+      return this.$store.getters.entries.selectedBiz
+    },
+    selectedBizTaxRate() {
+      return this.$store.getters.entries.selectedBizTaxRate
+    },
+
+    // 共通 - 消費税
+    isCalculatable() {
+      return this.sales < CONSUMPTION_TAX_EXEMPT_SALES_LIMIT
+    },
+    salesCosumptionTax() {
+      return this.calcConsumptionTax(this.sales)
+    },
+    costCosumptionTax() {
+      return this.calcConsumptionTax(this.cost)
+    },
     
     // 共通 - 事業税
     businessTaxTaxableIncome() {
-      return this.sales - this.cost - BUSIBESS_TAX_DEDUCTION
+      return (this.sales - this.cost) + this.realEstateIncome - BUSIBESS_TAX_DEDUCTION
     },
 
     // 対策なし（免税）
@@ -199,7 +190,7 @@ export default {
       )
     },
     taxExemptIncomeCut() {
-      return this.sales * CONSUMPTION_TAX_RATE
+      return this.calcConsumptionTax(this.sales)
     },
     taxExemptConsumptionTax(){
       return 0
