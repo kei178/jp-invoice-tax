@@ -27,7 +27,7 @@
             年間経費
             <span 
               data-inverted=""
-              data-tooltip="青色申告決算書の「経費」計">
+              data-tooltip="青色申告決算書の「経費 計」">
               <i class="info circle icon"></i>
             </span>
           </label>
@@ -53,33 +53,49 @@
     <div class="ui form">
       <div class="three fields">
         <div class="field">
-          <label>青色申告控除</label>
+          <label>
+            課税所得金額
+            <span 
+              data-inverted=""
+              data-tooltip="確定申告書Bの「課税される所得金額」">
+              <i class="info circle icon"></i>
+            </span>
+          </label>
           <vue-numeric 
-            v-model="blueTaxDeduction" 
-            currency="¥" 
-            v-bind:min="650000"
-            readonly></vue-numeric>
+            v-model="taxableIncome" 
+            currency="¥" ></vue-numeric>
         </div>
         <div class="field">
-          <label>事業以外の所得（任意）</label>
+          <label>
+            不動産所得（任意）
+            <span 
+              data-inverted=""
+              data-tooltip="確定申告書Bの「所得金額 不動産」">
+              <i class="info circle icon"></i>
+            </span>
+          </label>
           <vue-numeric 
-            v-model="otherIncome" 
+            v-model="realEstateIncome" 
             currency="¥" 
             v-bind:min="0"></vue-numeric>
         </div>
         <div class="field">
           <label>
-            所得控除
+            事業税率
             <span 
               data-inverted=""
-              data-tooltip="確定申告書Bの「所得から差し引かれる金額」の合計">
+              data-tooltip="ほとんどの場合「5%」">
               <i class="info circle icon"></i>
             </span>
           </label>
-          <vue-numeric 
-            v-model="taxReduction" 
-            currency="¥" 
-            v-bind:min="380000"></vue-numeric>
+          <select class="ui fluid search dropdown" v-model="selectedBizTaxRate">
+            <option 
+                v-for="bizTaxRateOpt in bizTaxRateOpts" 
+                :value="bizTaxRateOpt[1]" 
+                :key="bizTaxRateOpt[0]">
+              {{ bizTaxRateOpt[0] }}
+            </option>
+          </select>
         </div>
       </div>
     </div>
@@ -92,13 +108,14 @@ import VueNumeric from 'vue-numeric'
 export default {
   data() {
     return {
-      sales:        this.$store.getters.entries.sales,
-      cost:         this.$store.getters.entries.cost,
-      selectedBiz:  this.$store.getters.entries.selectedBiz,
-      bizOpts:      this.$store.getters.entries.bizOpts,
-      otherIncome:  this.$store.getters.entries.otherIncome,
-      taxReduction: this.$store.getters.entries.taxReduction,
-      blueTaxDeduction: this.$store.getters.entries.blueTaxDeduction
+      sales:              this.$store.getters.entries.sales,
+      cost:               this.$store.getters.entries.cost,
+      selectedBiz:        this.$store.getters.entries.selectedBiz,
+      bizOpts:            this.$store.getters.entries.bizOpts,
+      selectedBizTaxRate: this.$store.getters.entries.selectedBizTaxRate,
+      bizTaxRateOpts:     this.$store.getters.entries.bizTaxRateOpts,
+      taxableIncome:      this.$store.getters.entries.taxableIncome,
+      realEstateIncome:   this.$store.getters.entries.realEstateIncome,
     }
   },
   components: {
@@ -114,22 +131,33 @@ export default {
     selectedBiz: function() {
       this.updateEntries()
     },
-    otherIncome: function() {
+    bizOpts: function() {
       this.updateEntries()
     },
-    taxReduction: function() {
+    selectedBizTaxRate: function() {
+      this.updateEntries()
+    },
+    bizTaxRateOpts: function() {
+      this.updateEntries()
+    },
+    taxableIncome: function() {
+      this.updateEntries()
+    },
+    realEstateIncome: function() {
       this.updateEntries()
     },
   },
   methods: {
     updateEntries() {
       this.$store.dispatch("updateEntries", {
-        sales:        this.sales,
-        cost:         this.cost,
-        selectedBiz:  this.selectedBiz,
-        bizOpts:      this.bizOpts,
-        otherIncome:  this.otherIncome,
-        taxReduction: this.taxReduction  
+        sales:              this.sales,
+        cost:               this.cost,
+        selectedBiz:        this.selectedBiz,
+        bizOpts:            this.bizOpts,
+        selectedBizTaxRate: this.selectedBizTaxRate,
+        bizTaxRateOpts:     this.bizTaxRateOpts,
+        taxableIncome:      this.taxableIncome,
+        realEstateIncome:   this.realEstateIncome
       })
     }
   }
