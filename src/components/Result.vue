@@ -1,6 +1,14 @@
 <template>
   <div class="ui segment basic center aligned">
-    <h2>手取り増加額</h2>
+    <h2>
+      手取り増加額
+      <span
+        style="color: darkgrey;"
+        data-inverted=""
+        data-tooltip="課税事業者成りで得する金額">
+        <i class="info circle icon small"></i>
+      </span>
+    </h2>
     <transition name="fade" mode="out-in">
       <template v-if="isCalculatable">
         <div>
@@ -296,4 +304,4 @@ export default {
   table.ui.celled.table td:first-child {
     text-align: left;  
   }
-</style>
+</style>  
