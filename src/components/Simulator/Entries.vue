@@ -175,6 +175,9 @@ export default {
 </script> 
 
 <style scoped>
+  .ui.segment.basic {
+    padding-top: 0;
+  }
   i.info.circle.icon {
     color:darkgrey;
   }

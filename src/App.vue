@@ -9,6 +9,11 @@
     <twitter></twitter>
     <donation></donation>
     <contact></contact>
+    <div class="ui divider hidden"></div>
+    <div class="ui divider"></div>
+    <app-footer></app-footer>
+    <div class="ui divider hidden"></div>
+    <div class="ui divider hidden"></div>
   </div>
 </template> 
 
@@ -20,6 +25,7 @@ import Disclaimer   from './components/Simulator/Disclaimer.vue';
 import Twitter      from './components/Twitter.vue';
 import Donation     from './components/Donation.vue';
 import Contact      from './components/Contact.vue';
+import Footer       from './components/Footer.vue';
 
 export default {
   components: {
@@ -29,7 +35,8 @@ export default {
     Disclaimer,
     Twitter,
     Donation,
-    Contact
+    Contact,
+    appFooter: Footer
   },
   created() {
     this.$store.dispatch('initEntries')
@@ -39,7 +46,7 @@ export default {
 
 <style>
   body {
-    padding: 3rem;
+    padding: 1.5rem 0;
   }
   /* Animation */
   .fade-enter-active {
