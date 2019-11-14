@@ -6,9 +6,9 @@
     <disclaimer></disclaimer>
     <div class="ui divider hidden"></div>
     <div class="ui divider"></div>
+    <twitter></twitter>
     <donation></donation>
     <contact></contact>
-    <twitter></twitter>
   </div>
 </template> 
 
@@ -17,9 +17,9 @@ import Instruction  from './components/Simulator/Instruction.vue';
 import Entries      from './components/Simulator/Entries.vue'; 
 import Result       from './components/Simulator/Result.vue'; 
 import Disclaimer   from './components/Simulator/Disclaimer.vue'; 
+import Twitter      from './components/Twitter.vue';
 import Donation     from './components/Donation.vue';
 import Contact      from './components/Contact.vue';
-import Twitter      from './components/Twitter.vue';
 
 export default {
   components: {
@@ -27,9 +27,9 @@ export default {
     Entries,
     Result,
     Disclaimer,
+    Twitter,
     Donation,
-    Contact,
-    Twitter
+    Contact
   },
   created() {
     this.$store.dispatch('initEntries')

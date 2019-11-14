@@ -4,13 +4,20 @@
       みんなのつぶやき
       <i class="twitter icon"></i>
     </h2>
-    <p>#課税事業者成り</p>
+    <div id="twitter-widget"></div>
+      <a href="https://twitter.com/intent/tweet?button_hashtag=課税事業者成り&ref_src=twsrc%5Etfw" class="twitter-hashtag-button" data-show-count="false">Tweet #課税事業者成り</a>
   </div>
 </template>
 
 <script>
 export default {
-  
+   mounted() {
+    const tweetWidget = document.getElementById('twitter-widget')
+    let recaptchaScript = document.createElement('script')
+    recaptchaScript.async = true
+    recaptchaScript.setAttribute('src', 'https://platform.twitter.com/widgets.js')
+    tweetWidget.appendChild(recaptchaScript)
+  }
 }
 </script>
 
