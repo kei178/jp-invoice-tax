@@ -59,7 +59,7 @@ export default {
   @keyframes fade-out {
       from {
         opacity: 1;
-      }
+      }   
       to {
         opacity: 0;
       }

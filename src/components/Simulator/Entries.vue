@@ -1,7 +1,9 @@
 <template>
   <div class="ui segment basic center aligned">
     <h2>設定値</h2>
-    <p>
+    <p 
+      style="color: #db2828;"
+      v-show="!isEntered">
       あなたの情報を入力してください
       <i class="hand point down outline icon"></i>
     </p>
@@ -19,7 +21,8 @@
           <vue-numeric
             v-model="sales" 
             currency="¥" 
-            v-bind:min="0"
+            :change="checkEnteries()"
+            :min="0"
             autofocus></vue-numeric>
         </div>
         <div class="field" :class="{error: cost <= 0}">
@@ -34,7 +37,8 @@
           <vue-numeric 
             v-model="cost" 
             currency="¥" 
-            v-bind:min="0"></vue-numeric>
+            :change="checkEnteries()"
+            :min="0"></vue-numeric>
         </div>
         <div class="field">
           <label>業種（簡易課税用）</label>
@@ -63,6 +67,8 @@
           </label>
           <vue-numeric 
             v-model="taxableIncome" 
+            :change="checkEnteries()"
+            :min=0
             currency="¥" ></vue-numeric>
         </div>
         <div class="field">
@@ -116,6 +122,7 @@ export default {
       bizTaxRateOpts:     this.$store.getters.entries.bizTaxRateOpts,
       taxableIncome:      this.$store.getters.entries.taxableIncome,
       realEstateIncome:   this.$store.getters.entries.realEstateIncome,
+      isEntered:          false
     }
   },
   components: {
@@ -159,6 +166,9 @@ export default {
         taxableIncome:      this.taxableIncome,
         realEstateIncome:   this.realEstateIncome
       })
+    },
+    checkEnteries() {
+      this.isEntered = this.sales > 0 && this.cost > 0 && this.taxableIncome > 0
     }
   }
 }
