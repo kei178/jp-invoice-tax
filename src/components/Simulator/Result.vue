@@ -302,10 +302,13 @@ export default {
 </script>
 
 <style scoped>
+  .ui.segment.basic {
+    padding-top: 0;
+  }
   table.ui.celled.table td {
     text-align: right;
   }  
   table.ui.celled.table td:first-child {
     text-align: left;  
   }
-</style>  
+</style>
