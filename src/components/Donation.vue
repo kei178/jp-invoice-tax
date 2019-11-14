@@ -12,7 +12,7 @@
     <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
       <input type="hidden" name="cmd" value="_s-xclick">
       <input type="hidden" name="hosted_button_id" value="3K2V57PCUHUGN">
-      <input type="submit" name="submit" value="¥300 支援する" class="ui blue button">
+      <input type="submit" name="submit" value="¥300 支援" class="ui blue button">
     </form>
   </div>
 </template>
