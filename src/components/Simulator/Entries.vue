@@ -7,7 +7,7 @@
     </p>
     <div class="ui form">
       <div class="three fields">
-        <div class="field">
+        <div class="field" :class="{error: sales <= 0}">
           <label>
             年間売上
             <span 
@@ -16,13 +16,13 @@
               <i class="info circle icon"></i>
             </span>
           </label>
-          <vue-numeric 
+          <vue-numeric
             v-model="sales" 
             currency="¥" 
             v-bind:min="0"
             autofocus></vue-numeric>
         </div>
-        <div class="field"> 
+        <div class="field" :class="{error: cost <= 0}">
           <label>
             年間経費
             <span 
@@ -52,7 +52,7 @@
 
     <div class="ui form">
       <div class="three fields">
-        <div class="field">
+        <div class="field" :class="{error: taxableIncome <= 0}">
           <label>
             課税所得金額
             <span 
@@ -165,7 +165,7 @@ export default {
 </script> 
 
 <style scoped>
-  i.icon {
+  i.info.circle.icon {
     color:darkgrey;
   }
 </style>

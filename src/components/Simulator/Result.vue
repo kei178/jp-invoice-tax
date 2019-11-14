@@ -88,7 +88,8 @@
 const CONSUMPTION_TAX_RATE = 0.1,
       CONSUMPTION_TAX_EXEMPT_SALES_LIMIT = 10000000,
       RESIDENT_TAX_RATE = 0.1,
-      BUSIBESS_TAX_DEDUCTION = 2900000
+      BUSIBESS_TAX_DEDUCTION = 2900000,
+      BLUE_TAX_DEDUCTION = 650000
 
 export default {
   data() {
@@ -127,9 +128,12 @@ export default {
     calcConsumptionTax(amount) {
       return amount - (amount / (1 + CONSUMPTION_TAX_RATE))
     },
+    isBizIncomeTaxable(incomeChange) {
+      return (this.sales - this.cost + incomeChange) > BLUE_TAX_DEDUCTION
+    },
     incomeTaxImpact(incomeChange) {
       const income = this.taxableIncome + incomeChange
-      if(income > 0) {
+      if(income > 0 && this.isBizIncomeTaxable(incomeChange)) {
         return incomeChange * this.incomeTaxRate(income)
       } else {
         return 0
@@ -137,7 +141,7 @@ export default {
     },
     residentTaxImpact(incomeChange) {
       const income = this.taxableIncome + incomeChange
-      if(income > 0) {
+      if(income > 0 && this.isBizIncomeTaxable(incomeChange)) {
         return incomeChange * RESIDENT_TAX_RATE
       } else {
         return 0
@@ -145,7 +149,7 @@ export default {
     },
     businessTaxImpact(incomeChange) {
       const income = this.businessTaxTaxableIncome + incomeChange 
-      if(income > 0) {
+      if(income > 0 && this.isBizIncomeTaxable(incomeChange)) {
         return incomeChange * this.selectedBizTaxRate
       } else {
         return 0

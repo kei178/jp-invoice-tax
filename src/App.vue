@@ -1,8 +1,9 @@
 <template>
   <div class="ui text container">
     <instruction></instruction>
-    <calculator></calculator>
+    <entries></entries>
     <result></result>
+    <disclaimer></disclaimer>
     <div class="ui divider hidden"></div>
     <div class="ui divider"></div>
     <donation></donation>
@@ -12,9 +13,10 @@
 </template> 
 
 <script>
-import Instruction  from './components/Instruction.vue'; 
-import Calculator   from './components/Calculator.vue'; 
-import Result       from './components/Result.vue'; 
+import Instruction  from './components/Simulator/Instruction.vue'; 
+import Entries      from './components/Simulator/Entries.vue'; 
+import Result       from './components/Simulator/Result.vue'; 
+import Disclaimer   from './components/Simulator/Disclaimer.vue'; 
 import Donation     from './components/Donation.vue';
 import Contact      from './components/Contact.vue';
 import Twitter      from './components/Twitter.vue';
@@ -22,10 +24,11 @@ import Twitter      from './components/Twitter.vue';
 export default {
   components: {
     Instruction,  
-    Calculator,
+    Entries,
     Result,
-    Contact,
+    Disclaimer,
     Donation,
+    Contact,
     Twitter
   },
   created() {
