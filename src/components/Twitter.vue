@@ -4,8 +4,13 @@
       みんなのつぶやき
       <i class="twitter icon"></i>
     </h2>
+    <p>ご意見ご感想を <a href="https://twitter.com/intent/tweet?button_hashtag=課税事業者成り&ref_src=twsrc%5Etfw">#課税事業者成り</a> でツイートしてもらえる嬉しいです！</p>
     <div id="twitter-widget"></div>
-      <a href="https://twitter.com/intent/tweet?button_hashtag=課税事業者成り&ref_src=twsrc%5Etfw" class="twitter-hashtag-button" data-show-count="false">Tweet #課税事業者成り</a>
+      <a 
+        href="https://twitter.com/intent/tweet?button_hashtag=課税事業者成り&ref_src=twsrc%5Etfw" 
+        class="ui twitter button tiny">
+        <i class="twitter icon"></i>#課税事業者成り
+      </a>
   </div>
 </template>
 
