@@ -96,6 +96,11 @@ export default {
     return {
     }
   },
+  filters: {
+    formatNumber(value) {
+      return Number(Math.floor(value)).toLocaleString()
+    }
+  },
   methods: {  
     numColor(num) {
       if(num > 0) {
