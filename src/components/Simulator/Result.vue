@@ -130,12 +130,15 @@ export default {
         return 0.45
       }
     },
+    // 共通 - 消費税
     calcConsumptionTax(amount) {
       return amount - (amount / (1 + CONSUMPTION_TAX_RATE))
     },
+    // 共通 - 事業税
     isBizIncomeTaxable(incomeChange) {
       return (this.sales - this.cost + incomeChange) > BLUE_TAX_DEDUCTION
     },
+    // 影響額 - 所得税
     incomeTaxImpact(incomeChange) {
       const income = this.taxableIncome + incomeChange
       if(income > 0 && this.isBizIncomeTaxable(incomeChange)) {
@@ -144,6 +147,7 @@ export default {
         return 0
       }
     },
+    // 影響額 - 住民税
     residentTaxImpact(incomeChange) {
       const income = this.taxableIncome + incomeChange
       if(income > 0 && this.isBizIncomeTaxable(incomeChange)) {
@@ -152,6 +156,7 @@ export default {
         return 0
       }
     },
+    // 影響額 - 事業税
     businessTaxImpact(incomeChange) {
       const income = this.businessTaxTaxableIncome + incomeChange 
       if(income > 0 && this.isBizIncomeTaxable(incomeChange)) {

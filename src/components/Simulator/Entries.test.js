@@ -53,4 +53,7 @@ describe('Component', () => {
   it('is a Vue instance', () => {
       expect(wrapper.isVueInstance).toBeTruthy()
   })
+
+  // TODO: commits の発火テスト
+  // TODO: isEntered のテスト
 })

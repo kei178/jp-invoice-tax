@@ -42,4 +42,6 @@ describe('Component', () => {
   it('is a Vue instance', () => {
       expect(wrapper.isVueInstance).toBeTruthy()
   })
+
+  // TODO: showInstruction　のテスト
 })

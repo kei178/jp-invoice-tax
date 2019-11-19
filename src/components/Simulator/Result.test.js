@@ -53,4 +53,9 @@ describe('Component', () => {
   it('is a Vue instance', () => {
       expect(wrapper.isVueInstance).toBeTruthy()
   })
+
+  // TODO: 免税事業者結果のテスト
+  // TODO: 課税事業者結果のテスト
+  // TODO: 簡易課税事業者結果のテスト
+  // TODO: 最終結果のテスト
 })
