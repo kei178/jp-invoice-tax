@@ -10,7 +10,7 @@
     </h3>
     <p>
       今後もフリーランスのお金周りに関するツールを開発していきます。<br>
-      更新情報を入手したい方は、以下のボタンをクリックしてメアドをご登録ください。
+      ご興味のある方は、以下のボタンからメアドをご登録いただけます。
     </p>
     <a href="#" target="_blank" class="ui blue button">メアド登録</a>
   </div>  
@@ -22,4 +22,4 @@ export default {
 </script>
 
 <style scoped>
-</style>    
+</style>
