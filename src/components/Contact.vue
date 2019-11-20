@@ -12,7 +12,11 @@
       今後もフリーランスのお金周りに関するツールを開発していきます。<br>
       ご興味のある方は、以下のボタンからメアドをご登録いただけます。
     </p>
-    <a href="#" target="_blank" class="ui blue button">メアド登録</a>
+    <a 
+      href="#" 
+      target="_blank" 
+      class="ui blue button">
+      <i class="envelope outline icon"></i>登録</a>
   </div>  
 </template>
 
