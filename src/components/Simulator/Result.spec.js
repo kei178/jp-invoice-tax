@@ -36,10 +36,6 @@ beforeEach(() => {
     state
   })
   wrapper = shallowMount(Component, {
-    propsData: {},
-    mocks: {},
-    stubs: {},
-    methods: {},
     store,
     localVue,    
   })

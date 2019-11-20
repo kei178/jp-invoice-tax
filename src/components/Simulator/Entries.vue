@@ -20,7 +20,8 @@
           </label>
           <vue-numeric
             v-model="sales" 
-            currency="¥" 
+            class="sales"
+            currency="¥"
             :change="checkEnteries()"
             :min="0"
             autofocus></vue-numeric>
@@ -36,6 +37,7 @@
           </label>
           <vue-numeric 
             v-model="cost" 
+            class="cost"
             currency="¥" 
             :change="checkEnteries()"
             :min="0"></vue-numeric>
@@ -67,6 +69,7 @@
           </label>
           <vue-numeric 
             v-model="taxableIncome" 
+            class="taxable-income"
             :change="checkEnteries()"
             :min=0
             currency="¥" ></vue-numeric>
