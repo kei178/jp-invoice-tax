@@ -12,7 +12,9 @@ const localVue = createLocalVue()
 localVue.use(Vuex)
 
 beforeEach(() => {
-  actions = {}
+  actions = { 
+    updateEntries: jest.fn()
+  }
   mutations = {}
   state = {
     entries: {
@@ -37,12 +39,8 @@ beforeEach(() => {
   })
   wrapper = shallowMount(Component, {
     store,
-    localVue,    
+    localVue
   })
-})
-
-afterEach(() => {
-  wrapper.destroy();
 })
 
 describe('Component', () => {
@@ -51,19 +49,24 @@ describe('Component', () => {
   })
 
   it('shows the red text when required fields are not entered', () => {
-    const updateEntries = jest.fn()
-    wrapper.setMethods({ updateEntries })
-
     wrapper.vm.sales = ''
-    wrapper.vm.cost = ''
-    wrapper.vm.taxableIncome = ''
-    expect(wrapper.find("p.red").exists()).toBe(true)
+    wrapper.vm.cost = 1
+    wrapper.vm.taxableIncome = 1
+
+    expect(wrapper.find("p.red").isVisible()).toBe(true)
   })
 
   it('hides the red text when required fields are entered', () => {
-    wrapper.setData({ isEntered: true })
-    expect(wrapper.find("p.red").exists()).toBe(false)
+    wrapper.vm.sales = 1
+    wrapper.vm.cost = 1
+    wrapper.vm.taxableIncome = 1
+
+    expect(wrapper.find("p.red").isVisible()).toBe(false)
   })
 
-  // TODO: commits の発火テスト
+  it('calls updateEntries when inputs are changed', () => {
+    wrapper.vm.sales = 1
+
+    expect(actions.updateEntries).toHaveBeenCalled()
+  })
 })
