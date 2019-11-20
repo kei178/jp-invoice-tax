@@ -39,7 +39,7 @@
   },
   "jest": {
     "moduleFileExtensions": [
-      "js", 
+      "js",
       "json",
       "vue"
     ],

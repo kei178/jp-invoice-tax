@@ -51,7 +51,7 @@ afterEach(() => {
 
 describe('Component', () => {
   it('is a Vue instance', () => {
-      expect(wrapper.isVueInstance).toBeTruthy()
+    expect(wrapper.isVueInstance).toBeTruthy()
   })
 
   // TODO: 免税事業者結果のテスト
