@@ -4,15 +4,15 @@
     <transition name="fade" mode="out-in">
       <template v-if="!showInstruction">
         <p class="header">
-          <span @click="showInstruction = true">説明文をみる</span>
+          <span class="show" @click="toggleShowInstruction()">説明文をみる</span>
         </p>
       </template>
       <template v-else>
         <div>
           <p class="header">
-            <span @click="showInstruction = false">説明文をとじる</span>
+            <span class="hide" @click="toggleShowInstruction()">説明文をとじる</span>
           </p>
-          <div class="ui segment">
+          <div id="instruction-body" class="ui segment">
             <p>
               2023年10月からインボイス制度が始まります。もし何も対策をしなければ、これのせいで<strong>フリーランスの収入は10%も減る可能性があります。</strong>
               一方、事前に対策をおこない（＝課税事業者になって）、引き続き消費税を請求できるようにすれば、<strong>年収減は半分以下に抑えられます。</strong>
@@ -36,6 +36,11 @@ export default {
   data() {
     return {
       showInstruction: false
+    }
+  },
+  methods: {
+    toggleShowInstruction() {
+      this.showInstruction = !this.showInstruction 
     }
   }
 }
