@@ -1,14 +1,14 @@
 <template>
   <div class="ui text container">
-    <instruction></instruction>
-    <entries></entries>
-    <result></result>
-    <disclaimer></disclaimer>
+    <app-instruction></app-instruction>
+    <app-entries></app-entries>
+    <app-result></app-result>
+    <app-disclaimer></app-disclaimer>
     <div class="ui divider hidden"></div>
     <div class="ui divider"></div>
-    <twitter></twitter>
-    <donation></donation>
-    <contact></contact>
+    <app-twitter></app-twitter>
+    <app-contact></app-contact>
+    <app-donation></app-donation>
     <div class="ui divider hidden"></div>
     <div class="ui divider"></div>
     <app-footer></app-footer>
@@ -18,25 +18,25 @@
 </template> 
 
 <script>
-import Instruction  from './components/Simulator/Instruction.vue'; 
-import Entries      from './components/Simulator/Entries.vue'; 
-import Result       from './components/Simulator/Result.vue'; 
-import Disclaimer   from './components/Simulator/Disclaimer.vue'; 
-import Twitter      from './components/Twitter.vue';
-import Donation     from './components/Donation.vue';
-import Contact      from './components/Contact.vue';
-import Footer       from './components/Footer.vue';
+import appInstruction  from './components/Simulator/Instruction.vue'; 
+import appEntries      from './components/Simulator/Entries.vue'; 
+import appResult       from './components/Simulator/Result.vue'; 
+import appDisclaimer   from './components/Simulator/Disclaimer.vue'; 
+import appTwitter      from './components/Twitter.vue';
+import appDonation     from './components/Donation.vue';
+import appContact      from './components/Contact.vue';
+import appFooter       from './components/Footer.vue';
 
 export default {
   components: {
-    Instruction,  
-    Entries,
-    Result,
-    Disclaimer,
-    Twitter,
-    Donation,
-    Contact,
-    appFooter: Footer
+    appInstruction,  
+    appEntries,
+    appResult,
+    appDisclaimer,
+    appTwitter,
+    appContact,
+    appDonation,
+    appFooter
   },
   created() {
     this.$store.dispatch('initEntries')
