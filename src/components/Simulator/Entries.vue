@@ -2,7 +2,7 @@
   <div class="ui segment basic center aligned">
     <h2>設定値</h2>
     <p 
-      style="color: #db2828;"
+      class="red"
       v-show="!isEntered">
       あなたの情報を入力してください
       <i class="hand point down outline icon"></i>
@@ -180,5 +180,8 @@ export default {
   }
   i.info.circle.icon {
     color:darkgrey;
+  }
+  p.red {
+    color: #db2828;
   }
 </style>

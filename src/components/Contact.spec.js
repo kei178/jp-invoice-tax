@@ -4,13 +4,8 @@ import Component from './Contact'
 let wrapper
 
 beforeEach(() => {
-  wrapper = shallowMount(Component, {
-      propsData: {},
-      mocks: {},
-      stubs: {},
-      methods: {},
-  });
-});
+  wrapper = shallowMount(Component, {})
+})
 
 afterEach(() => {
   wrapper.destroy()

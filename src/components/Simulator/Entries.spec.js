@@ -36,10 +36,6 @@ beforeEach(() => {
     state
   })
   wrapper = shallowMount(Component, {
-    propsData: {},
-    mocks: {},
-    stubs: {},
-    methods: {},
     store,
     localVue,    
   })
@@ -54,6 +50,20 @@ describe('Component', () => {
     expect(wrapper.isVueInstance).toBeTruthy()
   })
 
+  it('shows the red text when required fields are not entered', () => {
+    const updateEntries = jest.fn()
+    wrapper.setMethods({ updateEntries })
+
+    wrapper.vm.sales = ''
+    wrapper.vm.cost = ''
+    wrapper.vm.taxableIncome = ''
+    expect(wrapper.find("p.red").exists()).toBe(true)
+  })
+
+  it('hides the red text when required fields are entered', () => {
+    wrapper.setData({ isEntered: true })
+    expect(wrapper.find("p.red").exists()).toBe(false)
+  })
+
   // TODO: commits の発火テスト
-  // TODO: isEntered のテスト
 })
