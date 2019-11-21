@@ -1,9 +1,8 @@
 version: '3.7'
 
 services:
-
-  my-app:
-    container_name: my-app
+  web:
+    container_name: web
     build:
       context: .
       dockerfile: Dockerfile.dev
@@ -12,3 +11,11 @@ services:
       - '/app/node_modules'
     ports:
       - '8080:8080'
+  tests:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - '.:/app'
+      - '/app/node_modules'
+    command: ["npm", "run", "test"]
