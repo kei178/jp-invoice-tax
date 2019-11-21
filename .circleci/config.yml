@@ -21,9 +21,9 @@ commands:
 
       - save_cache:
         key: dependency-cache-{{ checksum "package.json" }}
-          paths:
-            - node_modules
-  
+        paths:
+          - node_modules
+
 jobs:
   build:
     executor: default
@@ -52,7 +52,7 @@ workflows:
   continuous-deploy:
     jobs:
       - build
-      
+
       # - deploy:
       #   requires:
       #     - build
