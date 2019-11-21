@@ -1,0 +1,61 @@
+version: 2.1
+ 
+orbs:
+  aws-s3: circleci/aws-s3@1.0.11
+
+executors:
+  default:
+    docker:
+      - image: circleci/node:10
+      - image: circleci/python:2.7
+
+commands:
+  npm_install:
+    steps:
+      - restore_cache:
+        key: dependency-cache-{{ checksum "package.json" }}
+
+      - run:
+        name: install npm
+        command: npm install
+
+      - save_cache:
+        key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - node_modules
+  
+jobs:
+  build:
+    executor: default
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - npm_install
+      - run: npm run test 
+
+  # deploy:
+  #   executor: default
+  #   working_directory: ~/repo
+  #   steps:
+  #     - checkout
+  #     - npm_install
+  #     - run:
+  #       name: build
+  #       command: npm run build
+  #     - aws-s3/sync:
+  #       from: dist
+  #       to: s3://engine-deploy-ap-northeast-1-486094815342
+  #       overwrite: true
+
+workflows:
+  version: 2
+  continuous-deploy:
+    jobs:
+      - build
+      
+      # - deploy:
+      #   requires:
+      #     - build
+      #   filters:
+      #     branches:
+      #       only: master
