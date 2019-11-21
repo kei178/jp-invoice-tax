@@ -43,6 +43,10 @@ beforeEach(() => {
   })
 })
 
+afterEach(() => {
+  wrapper.destroy();
+})
+
 describe('Component', () => {
   it('is a Vue instance', () => {
     expect(wrapper.isVueInstance).toBeTruthy()

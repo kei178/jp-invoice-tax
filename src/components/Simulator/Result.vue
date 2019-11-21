@@ -93,8 +93,7 @@ const CONSUMPTION_TAX_RATE = 0.1,
 
 export default {
   data() {
-    return {
-    }
+    return {}
   },
   filters: {
     formatNumber(value) {
@@ -132,7 +131,7 @@ export default {
     },
     // 共通 - 消費税
     calcConsumptionTax(amount) {
-      return amount - (amount / (1 + CONSUMPTION_TAX_RATE))
+      return Math.floor(amount - (amount / (1 + CONSUMPTION_TAX_RATE)))
     },
     // 共通 - 事業税
     isBizIncomeTaxable(incomeChange) {
