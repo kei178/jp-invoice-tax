@@ -40,7 +40,7 @@ jobs:
           command: npm run build
       - aws-s3/sync:
           from: dist
-          to: s3://vue-jp-invoice-tax
+          to: s3://vue-jp-invoice-tax/dist
           overwrite: true
       - aws-s3/sync:
           from: index.html
