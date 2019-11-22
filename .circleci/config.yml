@@ -1,51 +1,51 @@
 version: 2.1
-jobs:
-  build:
+ 
+orbs:
+  aws-s3: circleci/aws-s3@1.0.11
+ 
+executors:
+  default:
     docker:
       - image: circleci/node:10.17.0
-    parallelism: 1
-    working_directory: ~/kei178/jp-invoice-tax
+      - image: circleci/python:2.7
+
+commands:
+  npm_install:
     steps:
-      - checkout
-      - attach_workspace:
-          at: ~/kei178/jp-invoice-tax
       - restore_cache:
           key: dependency-cache-{{ checksum "package.json" }}
       - run: npm install
       - save_cache:
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
-            - ./node_modules
-      - run: npm run test
-      - run: npm run build
-      - persist_to_workspace:
-          root: .
-          paths: dist
-  
-  deploy:
-    docker:
-      - image: circleci/golang:1.9.6
-    parallelism: 1
-    working_directory: ~/kei178/jp-invoice-tax
+              - node_modules
+
+jobs:
+  build:
+    executor: default
+    working_directory: ~/repo
     steps:
       - checkout
-      - attach_workspace:
-          at: ~/kei178/jp-invoice-tax
-      - restore_cache:
-          key: v1-pkg-cache
-      - run: go get -v github.com/bep/s3deploy
-      - save_cache:
-          key: v1-pkg-cache
-          paths:
-            - /go/pkg
-      - run:
-          name: Deploy to S3
-          command: |
-            s3deploy -source=dist/ -region=ap-northeast -bucket=vue-jp-invoice-tax
+      - npm_install
+      - run: npm run test
 
+  deploy:
+    executor: default
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - npm_install
+      - run:
+          name: build
+          command: npm run build
+      - aws-s3/sync:
+          from: dist
+          to: s3://vue-jp-invoice-tax
+          overwrite: true
+  
 workflows:
   version: 2
-  build-and-deploy:
+  continuous-deploy:
     jobs:
       - build
       - deploy:
