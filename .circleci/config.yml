@@ -12,8 +12,6 @@ jobs:
       - restore_cache:
           key: dependency-cache-{{ checksum "package.json" }}
       - run: npm install
-      # To avoid error when building it
-      - run: npm install -D webpack-cli
       - save_cache:
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
