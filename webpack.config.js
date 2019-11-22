@@ -69,27 +69,11 @@ if (process.env.NODE_ENV === 'production') {
       minimize: true
     })
   ])
-  const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
+  const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
   module.exports = {
     optimization: {
       minimizer: [new UglifyJsPlugin()],
-    }
-  }
-
-  // To solve `ERROR in Entry module not found: Error: Can't resolve './src'`
-  module.exports = {
-    entry : "./src/main.js",
-    module: {
-      rules: [
-        {
-          test: /\.js$/,
-          exclude: /node_modules/,
-          use: {
-            loader: "babel-loader"
-          }
-        }
-      ]
     }
   }
 }
