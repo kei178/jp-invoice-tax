@@ -42,10 +42,6 @@ jobs:
           from: dist
           to: s3://vue-jp-invoice-tax/dist
           overwrite: true
-      - aws-s3/sync:
-          from: index.html
-          to: s3://vue-jp-invoice-tax
-          overwrite: true
 
 workflows:
   version: 2
