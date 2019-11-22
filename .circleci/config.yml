@@ -39,12 +39,14 @@ jobs:
           name: build
           command: npm run build
       - aws-s3/sync:
-          from: 
-            - dist
-            - index.html
+          from: dist
           to: s3://vue-jp-invoice-tax
           overwrite: true
-  
+      - aws-s3/sync:
+          from: index.html
+          to: s3://vue-jp-invoice-tax
+          overwrite: true
+
 workflows:
   version: 2
   continuous-deploy:
