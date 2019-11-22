@@ -65,14 +65,15 @@ if (process.env.NODE_ENV === 'production') {
         NODE_ENV: '"production"'
       }
     }),
-    new webpack.optimize.UglifyJsPlugin({
-      sourceMap: true,
-      compress: {
-        warnings: false
-      }
-    }),
     new webpack.LoaderOptionsPlugin({
       minimize: true
     })
   ])
+  const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+
+  module.exports = {
+    optimization: {
+      minimizer: [new UglifyJsPlugin()],
+    }
+  }
 }
