@@ -41,11 +41,11 @@ module.exports = {
       // the following 3 rules handle font extraction
       {
         test: /\.(ttf|eot|svg|png|woff(2)?)(\?[a-z0-9]+)?$/,
-        use: [
-          'file-loader?name=/img/[name].[ext]', {
-          loader : 'file-loader', options: {name : "./img/[name].[ext]"}
-          }
-        ]
+        loader: 'url-loader',
+        options: {
+          limit: 4096,
+          name: './fonts/[name].[ext]?[hash]', // was '/fonts/[name].[ext]?[hash]',
+        },
       },
       {
         test: /\.otf(\?.*)?$/,
