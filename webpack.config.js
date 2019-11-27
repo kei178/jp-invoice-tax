@@ -41,7 +41,6 @@ module.exports = {
       // the following 3 rules handle font extraction
       {
         test: /\.(ttf|eot|svg|gif|png|woff(2))(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        include: SRC,
         use: [{
             loader: 'file-loader'
         }]
