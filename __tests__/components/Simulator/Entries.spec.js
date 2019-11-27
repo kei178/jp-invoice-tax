@@ -1,6 +1,9 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from "vuex"
-import Component from './Entries'
+import Component from '@/components/Simulator/Entries'
+
+const localVue = createLocalVue()
+localVue.use(Vuex)
 
 let wrapper
 let store
@@ -8,8 +11,6 @@ let actions
 let mutations
 let state
 let getters
-const localVue = createLocalVue()
-localVue.use(Vuex)
 
 beforeEach(() => {
   actions = { 

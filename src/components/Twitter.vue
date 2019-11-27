@@ -16,12 +16,18 @@
 
 <script>
 export default {
-   mounted() {
-    const tweetWidget = document.getElementById('twitter-widget')
-    let recaptchaScript = document.createElement('script')
-    recaptchaScript.async = true
-    recaptchaScript.setAttribute('src', 'https://platform.twitter.com/widgets.js')
-    tweetWidget.appendChild(recaptchaScript)
+  mounted() {
+    this.appendTwitterWidget()
+  },
+  methods: {
+    // maybe-later: Be replaced with `vue-tweet-embed`
+    appendTwitterWidget() {
+      const tweetWidget = document.getElementById('twitter-widget')
+      let recaptchaScript = document.createElement('script')
+      recaptchaScript.async = true
+      recaptchaScript.setAttribute('src', 'https://platform.twitter.com/widgets.js')
+      tweetWidget.appendChild(recaptchaScript)
+    }
   }
 }
 </script>

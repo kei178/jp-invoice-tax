@@ -1,14 +1,15 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from "vuex"
-import Component from './Result'
+import Component from '@/components/Simulator/Result'
+
+const localVue = createLocalVue()
+localVue.use(Vuex)
 
 let store
 let actions
 let mutations
 let state
 let getters
-const localVue = createLocalVue()
-localVue.use(Vuex)
 
 // 設定値
 const exampleEntries = {

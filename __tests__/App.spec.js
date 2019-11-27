@@ -1,6 +1,6 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from "vuex"
-import Component from './App'
+import Component from '@/App'
 
 let wrapper
 let store
