@@ -73,9 +73,9 @@ module.exports = {
     new VueLoaderPlugin(),
     // Include index.html into dist
     new CopyWebpackPlugin([
-      { from: './index.html', to: './dist/index.html', toType: 'file'}
+      { from: './index.html', to: './index.html', toType: 'file'}
     ])
-  ]
+  ] 
 }
 
 if (process.env.NODE_ENV === 'production') {
