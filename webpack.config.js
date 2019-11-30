@@ -69,7 +69,11 @@ module.exports = {
   },
   devtool: '#eval-source-map',
   plugins: [
-    new VueLoaderPlugin()
+    new VueLoaderPlugin(),
+    // Include index.html into dist
+    new CopyWebpackPlugin([
+      { from: './index/html', to: 'relative/path/to/dest/' }
+    ])
   ]
 }
 
@@ -84,11 +88,7 @@ if (process.env.NODE_ENV === 'production') {
     }),
     new webpack.LoaderOptionsPlugin({
       minimize: true
-    }),
-    // Include index.html into dist
-    new CopyWebpackPlugin([
-      { from: './index/html', to: 'relative/path/to/dest/' }
-    ])
+    })
   ])
 
   const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
