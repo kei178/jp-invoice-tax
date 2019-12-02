@@ -7,6 +7,12 @@
       <div class="item">不動産所得は事業税課税標準の算出にのみ使っています。（インボイス制度の影響は無視しています）</div>
       <div class="item">実際の計算式は<a href="https://github.com/kei178/jp-invoice-tax" target="_blank">ソースコード</a>をご覧ください。</div>
     </div>
+    <div class="ui segment basic center aligned">
+      <a class="ui twitter button mini"
+        href="https://twitter.com/intent/tweet?button_hashtag=課税事業者成り">
+        <i class="twitter icon"></i>つぶやく
+      </a>
+    </div>
   </div>
 </template> 
 

@@ -6,7 +6,7 @@ import store from './store/store'
 
 // vue-router
 // XXX Compile error occurs if install it with npm
-import VueRouter from './vendor/vue-router'
+import VueRouter from 'vue-router'
 import { routes } from './routes'
 Vue.use(VueRouter)
 

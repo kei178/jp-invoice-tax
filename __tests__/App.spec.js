@@ -1,6 +1,6 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from "vuex"
-import VueRouter from '@/vendor/vue-router'
+import VueRouter from 'vue-router'
 import Component from '@/App'
 
 let wrapper

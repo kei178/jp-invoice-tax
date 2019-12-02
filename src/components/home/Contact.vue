@@ -2,7 +2,6 @@
   <div class="ui segment basic center aligned">
     <h2>
       問い合わせ
-      <i class="paper plane outline icon"></i>
     </h2>
     <p>
       当シミュレーターについてのご意見や、業務のご依頼・ご相談は<br>

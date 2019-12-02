@@ -27,6 +27,12 @@
         </div>
       </template>
     </transition>
+    <div class="ui segment basic center aligned">
+      <a class="ui twitter button mini"
+        href="https://twitter.com/intent/tweet?button_hashtag=課税事業者成り">
+        <i class="twitter icon"></i>つぶやく
+      </a>
+    </div>
   </div>  
 </template>
 
@@ -55,5 +61,8 @@ export default {
   p.header span {
     cursor: pointer;
     color: #2185d0;
+  }
+  .ui.segment.basic.center.aligned {
+    margin-top: 0; 
   }
 </style>
