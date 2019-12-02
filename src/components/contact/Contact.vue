@@ -1,0 +1,133 @@
+<template>
+  <div class="ui segment basic">
+    <template v-if="!isSubmitted">
+      <div class="ui feed">
+        <div class="event">
+          <div class="label">
+            <img src="https://avatars0.githubusercontent.com/u/20009662?s=460&v=4" class="ui circular image">
+          </div>
+          <div class="content">
+            当シミュレーターについてのご意見や、業務のご依頼・ご相談はこちらからお気軽にどうぞ。
+          </div>
+        </div>
+      </div>
+      <div class="ui divider hidden"></div>
+      <div class="ui form">
+        <div class="field">
+          <label>名前*</label>
+          <input 
+                  type="text" 
+                  name="name" 
+                  v-model="contactData.name"
+                  placeholder="" 
+                  autofocus="true">
+        </div>
+        <div class="field">
+          <label>メールアドレス*</label>
+          <input 
+                  type="email" 
+                  name="email" 
+                  v-model="contactData.email"
+                  placeholder="">
+        </div>
+        <div class="field">
+          <label>題名*</label>
+          <input 
+                  type="text" 
+                  name="subject" 
+                  v-model="contactData.subject"
+                  placeholder="どのような内容ですか？">
+        </div>
+        <div class="field">
+          <label>メッセージ*</label>
+          <textarea 
+                  name="message" 
+                  v-model="contactData.message"
+                  placeholder="詳細を記載してください。"></textarea>
+        </div>
+        <div class="two fields">
+          <div class="field">
+            <router-link to="/" tag="div" class="ui button left floated">戻る</router-link>
+          </div>
+          <div class="field">
+            <div 
+              class="ui blue button right floated" 
+              :class="{disabled: !inputAllPresent}"
+              @click="submitForm">送信</div>
+          </div>
+        </div>
+      </div>
+    </template>
+    <div 
+      v-else 
+      class="ui segment basic center aligned">
+      <h2 class="ui icon header">
+        <i class="check circle icon teal"></i>
+        <div class="content">
+          送信しました
+        </div>
+      </h2>
+      <table class="ui table">
+        <tr>
+          <td>名前：</td>
+          <td>{{ contactData.name }}</td>
+        </tr>
+        <tr>
+          <td>メールアドレス：</td>
+          <td>{{ contactData.email }}</td>
+        </tr>
+        <tr>
+          <td>題名：</td>
+          <td>{{ contactData.subject }}</td>
+        </tr>
+          <tr>
+          <td>メッセージ：</td>
+          <td style="white-space: pre;">{{ contactData.message }}</td>
+        </tr>
+      </table>
+      <router-link to="/" tag="div" class="ui button">戻る</router-link>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  data(){
+    return {
+      contactData: {
+        name: '',
+        email: '',
+        subject: '',
+        message: ''
+      },
+      isSubmitted: false
+    }
+  },
+  computed: {
+    inputAllPresent() {
+      const d = this.contactData;
+      return (d.name && d.email && d.subject && d.message) ? true : false
+    },
+    contactMsg() {
+      "お問い合わせがありました。"
+    }
+  },
+  methods: {
+    submitForm() {
+      if(confirm('こちらの内容で送信しますか？')) {
+        this.isSubmitted = true
+        this.notifyTelegram()
+      }
+    },
+    notifyTelegram() {
+      console.log('Notified!')
+    }
+  }
+}
+</script>
+
+<style scoped>
+  .ui.segment {
+    padding-top: 2rem;
+  }
+</style>  
