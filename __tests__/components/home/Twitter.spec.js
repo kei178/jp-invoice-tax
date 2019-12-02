@@ -1,5 +1,5 @@
 import { shallowMount } from '@vue/test-utils'
-import Component from '@/components/Twitter'
+import Component from '@/components/home/Twitter'
 
 describe('Component', () => {
   it('is a Vue instance', () => {

@@ -1,10 +1,12 @@
 import { shallowMount } from '@vue/test-utils'
-import Component from '@/components/Donation'
+import Component from '@/components/contact/Contact'
 
 let wrapper
 
 beforeEach(() => {
-  wrapper = shallowMount(Component, {})
+  wrapper = shallowMount(Component, {
+    stubs: ['router-link', 'router-view']
+  })
 })
 
 afterEach(() => {

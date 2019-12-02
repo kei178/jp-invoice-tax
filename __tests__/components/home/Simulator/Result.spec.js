@@ -1,6 +1,6 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from "vuex"
-import Component from '@/components/Simulator/Result'
+import Component from '@/components/home/Simulator/Result'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)

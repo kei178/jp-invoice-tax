@@ -1,5 +1,6 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from "vuex"
+import VueRouter from '@/vendor/vue-router'
 import Component from '@/App'
 
 let wrapper
@@ -9,6 +10,10 @@ let mutations
 let state
 const localVue = createLocalVue()
 localVue.use(Vuex)
+
+// vue-router
+localVue.use(VueRouter)
+const router = new VueRouter()
 
 beforeEach(() => {
   actions = {
@@ -26,10 +31,10 @@ beforeEach(() => {
   wrapper = shallowMount(Component, {
     propsData: {},
     mocks: {},
-    stubs: {},
     methods: {},
     store,
-    localVue,    
+    localVue,   
+    router 
   })
 })
 
