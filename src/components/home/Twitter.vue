@@ -1,7 +1,7 @@
 <template>
   <div class="ui segment basic center aligned">
     <h2>
-      みんなのつぶやき
+      つぶやき
       <i class="twitter icon"></i>
     </h2>
     <div id="twitter-widget"></div>
