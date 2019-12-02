@@ -1,42 +1,21 @@
 <template>
   <div class="ui text container">
-    <app-instruction></app-instruction>
-    <app-entries></app-entries>
-    <app-result></app-result>
-    <app-disclaimer></app-disclaimer>
-    <div class="ui divider hidden"></div>
-    <div class="ui divider"></div>
-    <app-twitter></app-twitter>
-    <app-contact></app-contact>
-    <app-donation></app-donation>
-    <div class="ui divider hidden"></div>
-    <div class="ui divider"></div>
+    <app-header></app-header>
+    <transition name="fade" mode="out-in">
+      <router-view></router-view>
+    </transition>
     <app-footer></app-footer>
-    <div class="ui divider hidden"></div>
-    <div class="ui divider hidden"></div>
   </div>
-</template> 
+</template>
 
 <script>
-import appInstruction  from './components/Simulator/Instruction.vue'; 
-import appEntries      from './components/Simulator/Entries.vue'; 
-import appResult       from './components/Simulator/Result.vue'; 
-import appDisclaimer   from './components/Simulator/Disclaimer.vue'; 
-import appTwitter      from './components/Twitter.vue';
-import appDonation     from './components/Donation.vue';
-import appContact      from './components/Contact.vue';
-import appFooter       from './components/Footer.vue';
+import Header from './components/Header.vue'; 
+import Footer from './components/Footer.vue'; 
 
-export default {
+export default  {
   components: {
-    appInstruction,  
-    appEntries,
-    appResult,
-    appDisclaimer,
-    appTwitter,
-    appContact,
-    appDonation,
-    appFooter
+    appHeader: Header,
+    appFooter: Footer
   },
   created() {
     this.$store.dispatch('initEntries')
@@ -45,9 +24,6 @@ export default {
 </script>
 
 <style>
-  body {
-    padding: 1.5rem 0;
-  }
   /* Animation */
   .fade-enter-active {
     animation: fade-in 200ms ease-in forwards;

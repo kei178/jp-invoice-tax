@@ -1,6 +1,5 @@
 <template>
   <div class="ui segment basic">
-    <h1>課税事業者成りシミュレーター</h1>
     <transition name="fade" mode="out-in">
       <template v-if="!showInstruction">
         <p class="header">
@@ -22,7 +21,7 @@
               少しでも年収減を食い止められるように、2022年までにしっかり準備しておきましょう！
             </p>
             <p>
-              ※ インボイス制度でフリーランスが受ける影響の詳細は<a href="#" target="_blank">こちら</a>。 
+              ※ インボイス制度でフリーランスが受ける影響の詳細は<a href="http://bit.ly/2R8VG3G" target="_blank">こちら</a>。 
             </p>
           </div>
         </div>
@@ -35,7 +34,7 @@
 export default {
   data() {
     return {
-      showInstruction: false
+      showInstruction: true
     }
   },
   methods: {
