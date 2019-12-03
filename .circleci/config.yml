@@ -37,10 +37,7 @@ jobs:
       - npm_install
       - run:
           name: build
-          command: npm run build
-          environment:
-            TELEGRAM_CHAT_ID: $TELEGRAM_CHAT_ID
-            TELEGRAM_TOKEN: $TELEGRAM_TOKEN
+          command: TELEGRAM_CHAT_ID=$TELEGRAM_CHAT_ID TELEGRAM_TOKEN=$TELEGRAM_TOKEN npm run build
       - aws-s3/sync:
           from: dist
           to: s3://vue-jp-invoice-tax/dist
