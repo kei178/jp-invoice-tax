@@ -32,15 +32,12 @@ jobs:
   deploy:
     executor: default
     working_directory: ~/repo
-    environment:
-      VUE_APP_TELEGRAM_CHAT_ID: $VUE_APP_TELEGRAM_CHAT_ID
-      VUE_APP_TELEGRAM_TOKEN: $VUE_APP_TELEGRAM_TOKEN
     steps:
       - checkout
       - npm_install
       - run:
           name: build
-          command: npm run build
+          command: npm run build --env.VUE_APP_TELEGRAM_CHAT_ID=${VUE_APP_TELEGRAM_CHAT_ID} --env.VUE_APP_TELEGRAM_TOKEN=${VUE_APP_TELEGRAM_TOKEN}
       - aws-s3/sync:
           from: dist
           to: s3://vue-jp-invoice-tax/dist

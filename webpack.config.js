@@ -103,4 +103,14 @@ if (process.env.NODE_ENV === 'production') {
       minimizer: [new UglifyJsPlugin()],
     }
   }
+
+  // Define with CircleCI environment var
+  module.exports = env => {
+    new webpack.DefinePlugin({
+      'process.env': {
+        VUE_APP_TELEGRAM_CHAT_ID: JSON.stringify(env.VUE_APP_TELEGRAM_CHAT_ID),
+        VUE_APP_TELEGRAM_TOKEN:   JSON.stringify(env.VUE_APP_TELEGRAM_TOKEN)
+      }
+    })
+  }
 }
