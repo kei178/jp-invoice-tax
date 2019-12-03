@@ -41,6 +41,7 @@ jobs:
     steps:
       - checkout
       - npm_install
+      - add_env
       - run:
           name: build
           command: npm run build
