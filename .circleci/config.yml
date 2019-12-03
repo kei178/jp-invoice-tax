@@ -19,34 +19,24 @@ commands:
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
               - node_modules
-  setup_env:
-    steps:
-      - run:
-          name: Setup Environment Variables
-          environment:
-            VUE_APP_TELEGRAM_CHAT_ID: $VUE_APP_TELEGRAM_CHAT_ID
-            VUE_APP_TELEGRAM_TOKEN: $VUE_APP_TELEGRAM_TOKEN
-          command: |
-            touch .env
-            echo VUE_APP_TELEGRAM_CHAT_ID=$VUE_APP_TELEGRAM_CHAT_ID >> .env
-            echo VUE_APP_TELEGRAM_TOKEN=$VUE_APP_TELEGRAM_TOKEN >> .env
-       
+
 jobs:
   build:
     executor: default
     working_directory: ~/repo
     steps:
       - checkout
-      - setup_env
       - npm_install
       - run: npm run test
 
   deploy:
     executor: default
     working_directory: ~/repo
+    environment:
+      VUE_APP_TELEGRAM_CHAT_ID: $VUE_APP_TELEGRAM_CHAT_ID
+      VUE_APP_TELEGRAM_TOKEN: $VUE_APP_TELEGRAM_TOKEN
     steps:
       - checkout
-      - setup_env
       - npm_install
       - run:
           name: build
