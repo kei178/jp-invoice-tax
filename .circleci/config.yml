@@ -21,9 +21,9 @@ commands:
               - node_modules
   add_env:
     steps:
-      - run: touch .env
-      - run: export VUE_APP_TELEGRAM_CHAT_ID='$VUE_APP_TELEGRAM_CHAT_ID' >> .env
-      - run: export VUE_APP_TELEGRAM_TOKEN='$VUE_APP_TELEGRAM_TOKEN' >> .env
+      - run: touch ~/repo/.env
+      - run: export VUE_APP_TELEGRAM_CHAT_ID='$VUE_APP_TELEGRAM_CHAT_ID' >> ~/repo/.env
+      - run: export VUE_APP_TELEGRAM_TOKEN='$VUE_APP_TELEGRAM_TOKEN' >> ~/repo/.env
 
 jobs:
   build:
