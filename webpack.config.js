@@ -89,9 +89,7 @@ if (process.env.NODE_ENV === 'production') {
   module.exports.plugins = (module.exports.plugins || []).concat([
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: '"production"',
-        VUE_APP_TELEGRAM_CHAT_ID: JSON.stringify(VUE_APP_TELEGRAM_CHAT_ID),
-        VUE_APP_TELEGRAM_TOKEN:   JSON.stringify(VUE_APP_TELEGRAM_TOKEN)
+        NODE_ENV: '"production"'
       }
     }),
     new webpack.LoaderOptionsPlugin({
