@@ -27,6 +27,9 @@ jobs:
     steps:
       - checkout
       - npm_install
+      environment:
+        - VUE_APP_TELEGRAM_CHAT_ID=$VUE_APP_TELEGRAM_CHAT_ID
+        - VUE_APP_TELEGRAM_TOKEN=$VUE_APP_TELEGRAM_TOKEN 
       - run: npm run test
 
   deploy:

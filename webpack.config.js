@@ -74,7 +74,12 @@ module.exports = {
     // Include index.html into dist
     new CopyWebpackPlugin([
       { from: './index.html', to: './index.html', toType: 'file'}
-    ])
+    ]),
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: '"development"'
+      }
+    })
   ] 
 }
 

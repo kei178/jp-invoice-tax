@@ -31,7 +31,7 @@
                   placeholder="">
         </div>
         <div class="field">
-          <label>題名*</label>
+          <label>件名*</label>
           <input 
                   type="text" 
                   name="subject" 
@@ -65,6 +65,7 @@
         <i class="check circle icon teal"></i>
         <div class="content">
           送信しました
+          <div class="sub header">返答には数日要する場合があります</div>
         </div>
       </h2>
       <table class="ui table">
@@ -77,7 +78,7 @@
           <td>{{ contactData.email }}</td>
         </tr>
         <tr>
-          <td>題名：</td>
+          <td>件名：</td>
           <td>{{ contactData.subject }}</td>
         </tr>
           <tr>
@@ -91,11 +92,13 @@
 </template>
 
 <script>
+import axios from "axios"
+
 export default {
   data(){
     return {
       contactData: {
-        name: '',
+        name: '', 
         email: '',
         subject: '',
         message: ''
@@ -105,22 +108,38 @@ export default {
   },
   computed: {
     inputAllPresent() {
-      const d = this.contactData;
+      const d = this.contactData
       return (d.name && d.email && d.subject && d.message) ? true : false
     },
     contactMsg() {
-      "お問い合わせがありました。"
+      return this.contactData.name + "さんからの問い合わせ" +
+             "\n" + this.contactData.email +
+             "\n件名: " + this.contactData.subject +
+             "\n" + this.contactData.message           
     }
   },
   methods: {
     submitForm() {
       if(confirm('こちらの内容で送信しますか？')) {
-        this.isSubmitted = true
         this.notifyTelegram()
       }
     },
     notifyTelegram() {
-      console.log('Notified!')
+      const base_url = 'https://api.telegram.org/bot',
+            token = process.env.VUE_APP_TELEGRAM_TOKEN,
+            method = '/sendMessage',
+            url = base_url + token + method,
+            chat_id = process.env.VUE_APP_TELEGRAM_CHAT_ID,
+            data = {
+              chat_id:    chat_id, 
+              text:       this.contactMsg,
+              parse_mode: 'HTML'
+            }
+      axios.post(url, data, {
+        headers: {'Content-Type': 'application/json'},
+      })
+      .then(res => this.isSubmitted = true)
+      .catch(error => console.log(error))
     }
   }
 }
