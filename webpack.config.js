@@ -74,12 +74,7 @@ module.exports = {
     // Include index.html into dist
     new CopyWebpackPlugin([
       { from: './index.html', to: './index.html', toType: 'file'}
-    ]),
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: '"development"'
-      }
-    })
+    ])
   ] 
 }
 
@@ -108,8 +103,8 @@ if (process.env.NODE_ENV === 'production') {
   module.exports = env => {
     new webpack.DefinePlugin({
       'process.env': {
-        VUE_APP_TELEGRAM_CHAT_ID: JSON.stringify(env.VUE_APP_TELEGRAM_CHAT_ID),
-        VUE_APP_TELEGRAM_TOKEN:   JSON.stringify(env.VUE_APP_TELEGRAM_TOKEN)
+        'VUE_APP_TELEGRAM_CHAT_ID': JSON.stringify(env.TELEGRAM_CHAT_ID),
+        'VUE_APP_TELEGRAM_TOKEN':   JSON.stringify(env.TELEGRAM_TOKEN)
       }
     })
   }

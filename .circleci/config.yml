@@ -37,7 +37,7 @@ jobs:
       - npm_install
       - run:
           name: build
-          command: npm run build --env.VUE_APP_TELEGRAM_CHAT_ID=${VUE_APP_TELEGRAM_CHAT_ID} --env.VUE_APP_TELEGRAM_TOKEN=${VUE_APP_TELEGRAM_TOKEN}
+          command: npm run build
       - aws-s3/sync:
           from: dist
           to: s3://vue-jp-invoice-tax/dist
