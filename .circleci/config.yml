@@ -21,10 +21,16 @@ commands:
               - node_modules
   setup_env:
     steps:
-      - run: touch .env
-      - run: echo VUE_APP_TELEGRAM_CHAT_ID=${VUE_APP_TELEGRAM_CHAT_ID} >> .env
-      - run: echo VUE_APP_TELEGRAM_TOKEN=${VUE_APP_TELEGRAM_TOKEN} >> .env
-            
+      - run:
+          name: Setup Environment Variables
+          environment:
+            VUE_APP_TELEGRAM_CHAT_ID: $VUE_APP_TELEGRAM_CHAT_ID
+            VUE_APP_TELEGRAM_TOKEN: $VUE_APP_TELEGRAM_TOKEN
+          command: |
+            touch .env
+            echo VUE_APP_TELEGRAM_CHAT_ID=$VUE_APP_TELEGRAM_CHAT_ID >> .env
+            echo VUE_APP_TELEGRAM_TOKEN=$VUE_APP_TELEGRAM_TOKEN >> .env
+       
 jobs:
   build:
     executor: default
