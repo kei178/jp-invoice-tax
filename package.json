@@ -8,7 +8,7 @@
   "scripts": {
     "serve": "node_modules/.bin/vue-cli-service serve",
     "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot",
-    "build": "webpack --mode production --env.TELEGRAM_CHAT_ID='${TELEGRAM_CHAT_ID}' --env.TELEGRAM_TOKEN='${TELEGRAM_TOKEN}'",
+    "build": "webpack --mode production --env.TELEGRAM_CHAT_ID=$TELEGRAM_CHAT_ID --env.TELEGRAM_TOKEN=$TELEGRAM_TOKEN",
     "test": "jest"
   },
   "dependencies": {
