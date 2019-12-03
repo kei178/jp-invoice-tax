@@ -7,6 +7,9 @@ executors:
   default:
     docker:
       - image: circleci/node:10.17.0
+        environment:
+          VUE_APP_TELEGRAM_CHAT_ID=$VUE_APP_TELEGRAM_CHAT_ID
+          VUE_APP_TELEGRAM_TOKEN=$VUE_APP_TELEGRAM_TOKEN 
       - image: circleci/python:2.7
 
 commands:
@@ -27,9 +30,6 @@ jobs:
     steps:
       - checkout
       - npm_install
-      - environment:
-        - VUE_APP_TELEGRAM_CHAT_ID=$VUE_APP_TELEGRAM_CHAT_ID
-        - VUE_APP_TELEGRAM_TOKEN=$VUE_APP_TELEGRAM_TOKEN 
       - run: npm run test
 
   deploy:
