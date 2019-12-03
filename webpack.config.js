@@ -3,79 +3,90 @@ var webpack = require('webpack')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 
-module.exports = {
-  entry: './src/main.js',
-  output: {
-    path: path.resolve(__dirname, './dist'),
-    publicPath: '/dist/',
-    filename: 'build.js'
-  },
-  module: {
-    rules: [
-      {
-        test: /\.css$/,
-        use: [
-          'vue-style-loader',
-          'css-loader'
-        ],
-      }, 
-      {
-        test: /\.vue$/,
-        loader: 'vue-loader',
-        options: {
-          loaders: {
-          }
-          // other vue-loader options go here
-        }
-      },
-      {
-        test: /\.js$/,
-        loader: 'babel-loader',
-        exclude: /node_modules/
-      },
-      // this rule handles images
-      {
-        test: /\.jpe?g$|\.gif$|\.ico$|\.png$|\.svg$/,
-        use: 'file-loader?name=[name].[ext]?[hash]'
-      },
+module.exports = env => {
+  console.log('TELEGRAM_CHAT_ID', env.TELEGRAM_CHAT_ID)
 
-      // the following 3 rules handle font extraction
-      {
-        test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loader: 'url-loader?limit=10000&mimetype=application/font-woff'
-      },
-      {
-        test: /\.(ttf|eot)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loader: 'file-loader'
-      },
-      {
-        test: /\.otf(\?.*)?$/,
-        use: 'file-loader?name=/fonts/[name].  [ext]&mimetype=application/font-otf'
-      }
-    ]
-  },
-  resolve: {
-    alias: {
-      'vue$': 'vue/dist/vue.esm.js'
+  return {
+    entry: './src/main.js',
+    output: {
+      path: path.resolve(__dirname, './dist'),
+      publicPath: '/dist/',
+      filename: 'build.js'
     },
-    extensions: ['*', '.js', '.vue', '.json']
-  },
-  devServer: {
-    historyApiFallback: true,
-    noInfo: true,
-    overlay: true
-  },
-  performance: {
-    hints: false
-  },
-  devtool: '#eval-source-map',
-  plugins: [
-    new VueLoaderPlugin(),
-    // Include index.html into dist
-    new CopyWebpackPlugin([
-      { from: './index.html', to: './index.html', toType: 'file'}
-    ])
-  ] 
+    module: {
+      rules: [
+        {
+          test: /\.css$/,
+          use: [
+            'vue-style-loader',
+            'css-loader'
+          ],
+        }, 
+        {
+          test: /\.vue$/,
+          loader: 'vue-loader',
+          options: {
+            loaders: {
+            }
+            // other vue-loader options go here
+          }
+        },
+        {
+          test: /\.js$/,
+          loader: 'babel-loader',
+          exclude: /node_modules/
+        },
+        // this rule handles images
+        {
+          test: /\.jpe?g$|\.gif$|\.ico$|\.png$|\.svg$/,
+          use: 'file-loader?name=[name].[ext]?[hash]'
+        },
+  
+        // the following 3 rules handle font extraction
+        {
+          test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+          loader: 'url-loader?limit=10000&mimetype=application/font-woff'
+        },
+        {
+          test: /\.(ttf|eot)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+          loader: 'file-loader'
+        },
+        {
+          test: /\.otf(\?.*)?$/,
+          use: 'file-loader?name=/fonts/[name].  [ext]&mimetype=application/font-otf'
+        }
+      ]
+    },
+    resolve: {
+      alias: {
+        'vue$': 'vue/dist/vue.esm.js'
+      },
+      extensions: ['*', '.js', '.vue', '.json']
+    },
+    devServer: {
+      historyApiFallback: true,
+      noInfo: true,
+      overlay: true
+    },
+    performance: {
+      hints: false
+    },
+    devtool: '#eval-source-map',
+    plugins: [
+      new VueLoaderPlugin(),
+      // Include index.html into dist
+      new CopyWebpackPlugin([
+        { from: './index.html', to: './index.html', toType: 'file'}
+      ]),
+      new webpack.DefinePlugin({
+        'process.env': {
+          // Define with CircleCI environment var
+          'VUE_APP_TELEGRAM_CHAT_ID': JSON.stringify(env.TELEGRAM_CHAT_ID),
+          'VUE_APP_TELEGRAM_TOKEN':   JSON.stringify(env.TELEGRAM_TOKEN)
+        }
+      })
+    ]   
+  }
 }
 
 if (process.env.NODE_ENV === 'production') {
@@ -97,15 +108,5 @@ if (process.env.NODE_ENV === 'production') {
     optimization: {
       minimizer: [new UglifyJsPlugin()],
     }
-  }
-
-  // Define with CircleCI environment var
-  module.exports = env => {
-    new webpack.DefinePlugin({
-      'process.env': {
-        'VUE_APP_TELEGRAM_CHAT_ID': JSON.stringify(env.TELEGRAM_CHAT_ID),
-        'VUE_APP_TELEGRAM_TOKEN':   JSON.stringify(env.TELEGRAM_TOKEN)
-      }
-    })
   }
 }
