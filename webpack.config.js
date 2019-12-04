@@ -2,12 +2,13 @@ var path = require('path')
 var webpack = require('webpack')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 module.exports = {
   entry: './src/main.js',
   output: {
     path: path.resolve(__dirname, './dist'),
-    publicPath: '',
+    publicPath: '/dist/',
     filename: 'build.js'
   },
   module: {
@@ -74,6 +75,9 @@ module.exports = {
     // Include index.html into dist
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, './index.html')
+    }),
+    new CopyWebpackPlugin({
+      from: './src/assets/favicon.png', to: './favicon.png', toType: 'file'
     })
   ]   
 }
