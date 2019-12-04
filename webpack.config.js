@@ -73,7 +73,8 @@ module.exports = {
     new VueLoaderPlugin(),
     // index.html into dist
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, './index.html')
+      template: path.resolve(__dirname, './index.html'),
+      cache: false
     })
   ]   
 }
