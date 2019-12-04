@@ -72,13 +72,14 @@ module.exports = {
   devtool: '#eval-source-map',
   plugins: [
     new VueLoaderPlugin(),
-    // Include index.html into dist
+    // index.html into dist
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, './index.html')
     }),
-    new CopyWebpackPlugin({
-      from: './src/assets/favicon.png', to: './favicon.png', toType: 'file'
-    })
+    // images into dist
+    new CopyWebpackPlugin([
+      { from: './src/assets/favicon.png', to: './favicon.png', toType: 'file' }
+    ])
   ]   
 }
 
