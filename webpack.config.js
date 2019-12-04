@@ -1,7 +1,7 @@
 var path = require('path')
 var webpack = require('webpack')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
-const CopyWebpackPlugin = require('copy-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
   entry: './src/main.js',
@@ -72,9 +72,13 @@ module.exports = {
   plugins: [
     new VueLoaderPlugin(),
     // Include index.html into dist
-    new CopyWebpackPlugin([
-      { from: './index.html', to: './index.html', toType: 'file'}
-    ])
+    new HtmlWebpackPlugin({
+      title: '課税事業者成りシミュレーター',
+      meta: {
+        name: 'description',
+        content: '2023年10月から始まるインボイス制度。このページでは、その対策である「課税事業者成り」によって見込まれる手取りの増加額を計算します。'
+      }
+    })
   ]   
 }
 
