@@ -7,8 +7,8 @@ module.exports = {
   entry: './src/main.js',
   output: {
     path: path.resolve(__dirname, './dist'),
-    // publicPath: '/dist/',
-    filename: 'build.js'
+    publicPath: '/dist/',
+    filename: '/dist/build.js'
   },
   module: {
     rules: [
@@ -74,11 +74,10 @@ module.exports = {
     // Include index.html into dist
     new HtmlWebpackPlugin({
       title: '課税事業者成りシミュレーター',
-      template: './index.html',
-      // 'meta': {
-      //   'name': 'description',
-      //   'content': '2023年10月から始まるインボイス制度。このページでは、その対策である「課税事業者成り」によって見込まれる手取りの増加額を計算します。'
-      // }
+      // template: './index.html',
+      'meta': {
+        'description': '2023年10月から始まるインボイス制度。このページでは、その対策である「課税事業者成り」によって見込まれる手取りの増加額を計算します。'
+      }
     })
   ]   
 }
