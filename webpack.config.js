@@ -74,9 +74,11 @@ module.exports = {
     // Include index.html into dist
     new HtmlWebpackPlugin({
       title: '課税事業者成りシミュレーター',
-      // template: './index.html',
+      template: join(__dirname, 'index.html'),
+      favicon:  join(__dirname, '/src/assets/favicon.png'),
       'meta': {
-        'description': '2023年10月から始まるインボイス制度。このページでは、その対策である「課税事業者成り」によって見込まれる手取りの増加額を計算します。'
+        'description': '2023年10月から始まるインボイス制度。このページでは、その対策である「課税事業者成り」によって見込まれる手取りの増加額を計算します。',
+
       }
     })
   ]   
