@@ -73,12 +73,12 @@ module.exports = {
     new VueLoaderPlugin(),
     // Include index.html into dist
     new HtmlWebpackPlugin({
-      template: 'index.html'
-      // title: '課税事業者成りシミュレーター',
-      // meta: {
-      //   name: 'description',
-      //   content: '2023年10月から始まるインボイス制度。このページでは、その対策である「課税事業者成り」によって見込まれる手取りの増加額を計算します。'
-      // }
+      title: '課税事業者成りシミュレーター',
+      template: 'index.html',
+      meta: {
+        name: 'description',
+        content: '2023年10月から始まるインボイス制度。このページでは、その対策である「課税事業者成り」によって見込まれる手取りの増加額を計算します。'
+      }
     })
   ]   
 }
