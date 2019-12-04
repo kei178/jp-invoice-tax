@@ -73,13 +73,7 @@ module.exports = {
     new VueLoaderPlugin(),
     // Include index.html into dist
     new HtmlWebpackPlugin({
-      title: '課税事業者成りシミュレーター',
-      template: path.resolve(__dirname, './index.html'),
-      favicon:  path.resolve(__dirname, './src/assets/favicon.png'),
-      'meta': {
-        'description': '2023年10月から始まるインボイス制度。このページでは、その対策である「課税事業者成り」によって見込まれる手取りの増加額を計算します。',
-
-      }
+      template: path.resolve(__dirname, './index.html')
     })
   ]   
 }
