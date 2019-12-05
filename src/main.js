@@ -1,14 +1,20 @@
 import Vue from 'vue'
 import App from './App.vue'
 
-// Vuex
+// vuex
 import store from './store/store'
 
 // vue-router
-// XXX Compile error occurs if install it with npm
 import VueRouter from 'vue-router'
 import { routes } from './routes'
 Vue.use(VueRouter)
+
+// vue-analytics
+import VueAnalytics from 'vue-analytics'
+Vue.use(VueAnalytics, {
+  id: 'UA-154025347-1',
+  router
+})
 
 const router = new VueRouter({
   mode: 'history',
