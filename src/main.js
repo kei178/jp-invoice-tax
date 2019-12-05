@@ -9,13 +9,6 @@ import VueRouter from 'vue-router'
 import { routes } from './routes'
 Vue.use(VueRouter)
 
-// vue-analytics
-import VueAnalytics from 'vue-analytics'
-Vue.use(VueAnalytics, {
-  id: 'UA-154025347-1',
-  router
-})
-
 const router = new VueRouter({
   mode: 'history',
   routes,
@@ -26,6 +19,13 @@ const router = new VueRouter({
       }, 200)
     })
   }
+})
+
+// vue-analytics
+import VueAnalytics from 'vue-analytics'
+Vue.use(VueAnalytics, {
+  id: 'UA-154025347-1',
+  router
 })
 
 // semantic-ui
