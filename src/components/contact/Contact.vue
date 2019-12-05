@@ -60,6 +60,7 @@
     </template>
     <div 
       v-else 
+      id="thank-you"
       class="ui segment basic center aligned">
       <h2 class="ui icon header">
         <i class="check circle icon teal"></i>
