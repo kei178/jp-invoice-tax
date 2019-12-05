@@ -22,12 +22,19 @@
                   placeholder="" 
                   autofocus="true">
         </div>
-        <div class="field">
-          <label>メールアドレス*</label>
+        <div class="field" :class="{error: !validEmail}">
+          <label>
+            メールアドレス*
+            <span 
+              v-show="!validEmail"
+              class="ui horizontal left pointing red basic label"
+              style="margin-left: 0.75rem;">フォーマットが間違っています</span>
+          </label>
           <input 
                   type="email" 
-                  name="email" 
+                  name="email"
                   v-model="contactData.email"
+                  @change="validateEmail()"
                   placeholder="">
         </div>
         <div class="field">
@@ -52,9 +59,15 @@
           <div class="field">
             <div 
               class="ui blue button right floated" 
-              :class="{disabled: !inputAllPresent}"
+              :class="{disabled: !isSubmittable}"
               @click="submitForm">送信</div>
           </div>
+        </div>
+        <div class="indetext">
+          <input 
+                  name="z_zip"
+                  type="text"
+                  v-model="honeypot">
         </div>
       </div>
     </template>
@@ -99,15 +112,20 @@ export default {
   data(){
     return {
       contactData: {
-        name: '', 
-        email: '',
+        name:    '', 
+        email:   '',
         subject: '',
         message: ''
       },
-      isSubmitted: false
+      isSubmitted: false,
+      honeypot:    false,
+      validEmail:  true // empty is true
     }
   },
   computed: {
+    isSubmittable() {
+      return this.inputAllPresent && this.validEmail
+    },
     inputAllPresent() {
       const d = this.contactData
       return (d.name && d.email && d.subject && d.message) ? true : false
@@ -117,11 +135,18 @@ export default {
              "\n" + this.contactData.email +
              "\n件名: " + this.contactData.subject +
              "\n" + this.contactData.message           
+    },
+    isHoneypotEmpty() {
+      return this.honeypot == ''
     }
   },
   methods: {
+    validateEmail() {
+      const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      this.validEmail = this.contactData.email == '' || re.test(this.contactData.email)
+    },
     submitForm() {
-      if(confirm('こちらの内容で送信しますか？')) {
+      if(confirm('こちらの内容で送信しますか？') && this.isHoneypotEmpty) {
         this.notifyTelegram()
       }
     },
@@ -149,5 +174,10 @@ export default {
 <style scoped>
   .ui.segment {
     padding-top: 2rem;
+  }
+  .indetext{
+    text-indent: 100%;
+    white-space: nowrap;
+    overflow: hidden;
   }
 </style>  

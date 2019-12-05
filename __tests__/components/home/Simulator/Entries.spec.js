@@ -53,25 +53,27 @@ describe('Component', () => {
     expect(wrapper.isVueInstance).toBeTruthy()
   })
 
-  it('shows the red text when required fields are not entered', () => {
-    wrapper.vm.sales = ''
-    wrapper.vm.cost = 1
-    wrapper.vm.taxableIncome = 1
-
-    expect(wrapper.find("p.red").isVisible()).toBe(true)
-  })
-
-  it('hides the red text when required fields are entered', () => {
-    wrapper.vm.sales = 1
-    wrapper.vm.cost = 1
-    wrapper.vm.taxableIncome = 1
-
-    expect(wrapper.find("p.red").isVisible()).toBe(false)
-  })
-
-  it('calls updateEntries when inputs are changed', () => {
-    wrapper.vm.sales = 1
-
-    expect(actions.updateEntries).toHaveBeenCalled()
+  describe('UI behaviour', () => {
+    it('shows the red text when required fields are not entered', () => {
+      wrapper.vm.sales = ''
+      wrapper.vm.cost = 1
+      wrapper.vm.taxableIncome = 1
+  
+      expect(wrapper.find("p.red").isVisible()).toBe(true)
+    })
+  
+    it('hides the red text when required fields are entered', () => {
+      wrapper.vm.sales = 1
+      wrapper.vm.cost = 1
+      wrapper.vm.taxableIncome = 1
+  
+      expect(wrapper.find("p.red").isVisible()).toBe(false)
+    })
+  
+    it('calls updateEntries when inputs are changed', () => {
+      wrapper.vm.sales = 1
+  
+      expect(actions.updateEntries).toHaveBeenCalled()
+    })
   })
 })

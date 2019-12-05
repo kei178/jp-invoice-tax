@@ -64,142 +64,150 @@ describe('Component', () => {
   })
   
   // 免税事業者
-  describe('taxExemptImpact', () => {
-    it('calclates the impact of the tax amount for tax exempt biz', () => {
-      const wrapper = factory()
-
-      const result = Math.floor(wrapper.vm.taxExemptImpact)
-      expect(result).toEqual(300000)
+  describe('calculations for tax exepmt businesses', () => {
+    describe('taxExemptImpact', () => {
+      it('calclates the impact of the tax amount for tax exempt biz', () => {
+        const wrapper = factory()
+  
+        const result = Math.floor(wrapper.vm.taxExemptImpact)
+        expect(result).toEqual(300000)
+      })
     })
   })
 
   // 課税事業者
-  describe('taxBizIncomeCut', () => {
-    it('calclates the impact of the income tax amount for taxable biz', () => {
-      const wrapper = factory()
-
-      const result = Math.floor(wrapper.vm.taxBizIncomeCut)
-      expect(result).toEqual(0)
-    })
-  })  
-
-  describe('taxBizConsumptionTax', () => {
-    it('calclates the impact of the consumption tax amount for taxable biz', () => {
-      const wrapper = factory()
-
-      const result = Math.floor(wrapper.vm.taxBizConsumptionTax)
-      expect(result).toEqual(200000)
-    })
-  })
-
-  describe('taxBizOtherTaxes', () => {
-    it('calclates the impact of the tax amount for taxable biz', () => {
-      const wrapper = factory()
-
-      const result = Math.floor(wrapper.vm.taxBizOtherTaxes)
-      // 所得税 5% + 住民税 10% (+ 事業税 5%)
-      expect(result).toEqual(-30000)
-    })
-  })  
+  describe('calculations for taxable businesses', () => {
+    describe('taxBizIncomeCut', () => {
+      it('calclates the impact of the income tax amount for taxable biz', () => {
+        const wrapper = factory()
   
-  // 簡易課税事業者
-  describe('simpleTaxBizIncomeCut', () => {
-    it('calclates the impact of the income tax amount for simple taxable biz', () => {
-      const wrapper = factory()
-
-      const result = Math.floor(wrapper.vm.simpleTaxBizIncomeCut)
-      expect(result).toEqual(0)
+        const result = Math.floor(wrapper.vm.taxBizIncomeCut)
+        expect(result).toEqual(0)
+      })
+    })  
+  
+    describe('taxBizConsumptionTax', () => {
+      it('calclates the impact of the consumption tax amount for taxable biz', () => {
+        const wrapper = factory()
+  
+        const result = Math.floor(wrapper.vm.taxBizConsumptionTax)
+        expect(result).toEqual(200000)
+      })
     })
-  })  
-
-  describe('simpleTaxBizConsumptionTax', () => {
-    it('calclates the impact of the consumption tax amount for simple taxable biz', () => {
-      const wrapper = factory()
-
-      const result = Math.floor(wrapper.vm.simpleTaxBizConsumptionTax)
-      // selectedBiz = 0.5
-      expect(result).toEqual(150000)
+  
+    describe('taxBizOtherTaxes', () => {
+      it('calclates the impact of the tax amount for taxable biz', () => {
+        const wrapper = factory()
+  
+        const result = Math.floor(wrapper.vm.taxBizOtherTaxes)
+        // 所得税 5% + 住民税 10% (+ 事業税 5%)
+        expect(result).toEqual(-30000)
+      })
     })
   })
 
-  describe('simpleTaxBizOtherTaxes', () => {
-    it('calclates the impact of the tax amount for simple taxable biz', () => {
-      const wrapper = factory()
-
-      const result = Math.floor(wrapper.vm.simpleTaxBizOtherTaxes)
-      // 所得税 5% + 住民税 10% (+ 事業税 5%)
-      expect(result).toEqual(-22500)
+  // 簡易課税事業者
+  describe('calculations for simple taxable businesses', () => {
+    describe('simpleTaxBizIncomeCut', () => {
+      it('calclates the impact of the income tax amount for simple taxable biz', () => {
+        const wrapper = factory()
+  
+        const result = Math.floor(wrapper.vm.simpleTaxBizIncomeCut)
+        expect(result).toEqual(0)
+      })
+    })  
+  
+    describe('simpleTaxBizConsumptionTax', () => {
+      it('calclates the impact of the consumption tax amount for simple taxable biz', () => {
+        const wrapper = factory()
+  
+        const result = Math.floor(wrapper.vm.simpleTaxBizConsumptionTax)
+        // selectedBiz = 0.5
+        expect(result).toEqual(150000)
+      })
     })
-  })  
+  
+    describe('simpleTaxBizOtherTaxes', () => {
+      it('calclates the impact of the tax amount for simple taxable biz', () => {
+        const wrapper = factory()
+  
+        const result = Math.floor(wrapper.vm.simpleTaxBizOtherTaxes)
+        // 所得税 5% + 住民税 10% (+ 事業税 5%)
+        expect(result).toEqual(-22500)
+      })
+    })
+  })
 
   // Methods
-  describe('calcConsumptionTax', () => {
-    it('calclates the consumption tax amount', () => {
-      const wrapper = factory()
-
-      const result = Math.floor(wrapper.vm.calcConsumptionTax(1100))
-      expect(result).toEqual(100)
+  describe('calculation methods', () => {
+    describe('calcConsumptionTax', () => {
+      it('calclates the consumption tax amount', () => {
+        const wrapper = factory()
+  
+        const result = Math.floor(wrapper.vm.calcConsumptionTax(1100))
+        expect(result).toEqual(100)
+      })
     })
-  })
-
-  describe('incomeTaxImpact', () => {
-    it('calclates the income tax diff', () => {
-      const entries = exampleEntries
-      entries.taxableIncome = 3000000
-      const wrapper = factory(entries)
-
-      const result = Math.floor(wrapper.vm.incomeTaxImpact(-300000))
-      expect(result).toEqual(-30000)
+  
+    describe('incomeTaxImpact', () => {
+      it('calclates the income tax diff', () => {
+        const entries = exampleEntries
+        entries.taxableIncome = 3000000
+        const wrapper = factory(entries)
+  
+        const result = Math.floor(wrapper.vm.incomeTaxImpact(-300000))
+        expect(result).toEqual(-30000)
+      })
+      it('returns 0 if the taxable income is less than 0', () => {
+        const entries = exampleEntries
+        entries.taxableIncome = 0
+        const wrapper = factory(entries)
+  
+        const result = Math.floor(wrapper.vm.incomeTaxImpact(-300000))
+        expect(result).toEqual(0)
+      })
     })
-    it('returns 0 if the taxable income is less than 0', () => {
-      const entries = exampleEntries
-      entries.taxableIncome = 0
-      const wrapper = factory(entries)
-
-      const result = Math.floor(wrapper.vm.incomeTaxImpact(-300000))
-      expect(result).toEqual(0)
+  
+    describe('residentTaxImpact', () => {
+      it('calclates the resident tax diff', () => {
+        const entries = exampleEntries
+        entries.taxableIncome = 3000000
+        const wrapper = factory(entries)
+  
+        const result = Math.floor(wrapper.vm.residentTaxImpact(-300000))
+        expect(result).toEqual(-30000)
+      })
+      it('returns 0 if the taxable income is less than 0', () => {
+        const entries = exampleEntries
+        entries.taxableIncome = 0
+        const wrapper = factory(entries)
+  
+        const result = Math.floor(wrapper.vm.residentTaxImpact(-300000))
+        expect(result).toEqual(0)
+      })
     })
-  })
-
-  describe('residentTaxImpact', () => {
-    it('calclates the resident tax diff', () => {
-      const entries = exampleEntries
-      entries.taxableIncome = 3000000
-      const wrapper = factory(entries)
-
-      const result = Math.floor(wrapper.vm.residentTaxImpact(-300000))
-      expect(result).toEqual(-30000)
-    })
-    it('returns 0 if the taxable income is less than 0', () => {
-      const entries = exampleEntries
-      entries.taxableIncome = 0
-      const wrapper = factory(entries)
-
-      const result = Math.floor(wrapper.vm.residentTaxImpact(-300000))
-      expect(result).toEqual(0)
-    })
-  })
-
-  describe('businessTaxImpact', () => {
-    it('calclates the business tax diff', () => {
-      const entries = exampleEntries
-      entries.sales = 5000000
-      entries.cost = 1000000
-      entries.taxableIncome = 2500000 // Dummy
-      const wrapper = factory(entries)
-
-      const result = Math.floor(wrapper.vm.businessTaxImpact(-300000))
-      expect(result).toEqual(-15000)
-    })
-    it('returns 0 if the taxable income is less than or equal to 2900000', () => {
-      const entries = exampleEntries
-      entries.sales = 2900000
-      entries.cost = 0
-      entries.taxableIncome = 2500000 // Dummy
-      const wrapper = factory(entries)
-
-      const result = Math.floor(wrapper.vm.businessTaxImpact(-300000))
-      expect(result).toEqual(0)
-    })
+  
+    describe('businessTaxImpact', () => {
+      it('calclates the business tax diff', () => {
+        const entries = exampleEntries
+        entries.sales = 5000000
+        entries.cost = 1000000
+        entries.taxableIncome = 2500000 // Dummy
+        const wrapper = factory(entries)
+  
+        const result = Math.floor(wrapper.vm.businessTaxImpact(-300000))
+        expect(result).toEqual(-15000)
+      })
+      it('returns 0 if the taxable income is less than or equal to 2900000', () => {
+        const entries = exampleEntries
+        entries.sales = 2900000
+        entries.cost = 0
+        entries.taxableIncome = 2500000 // Dummy
+        const wrapper = factory(entries)
+  
+        const result = Math.floor(wrapper.vm.businessTaxImpact(-300000))
+        expect(result).toEqual(0)
+      })
+    })  
   })
 })
