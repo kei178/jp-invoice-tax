@@ -27,17 +27,17 @@
         </div>
       </template>
     </transition>
-    <div class="ui segment basic center aligned">
-      <a class="ui twitter button mini"
-        href="https://twitter.com/intent/tweet?button_hashtag=課税事業者成り">
-        <i class="twitter icon"></i>つぶやく
-      </a>
-    </div>
+    <app-share></app-share>
   </div>  
 </template>
 
 <script>  
+import Share from '@/components/shared/Share.vue'
+
 export default {
+  components: {
+    appShare: Share
+  },
   data() {
     return {
       showInstruction: true
