@@ -3,6 +3,9 @@ var webpack = require('webpack')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
+console.log(process.env.NODE_ENV)
+console.log('TELEGRAM_CHAT_ID', env.TELEGRAM_CHAT_ID)
+
 module.exports = {
   entry: './src/main.js',
   output: {
