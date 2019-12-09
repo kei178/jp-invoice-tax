@@ -3,6 +3,7 @@ var webpack = require('webpack')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 module.exports = env => {
   return {
@@ -85,7 +86,10 @@ module.exports = env => {
       }),
       new webpack.LoaderOptionsPlugin({
         minimize: true
-      })
+      }),
+      new CopyWebpackPlugin([
+        { from: './access_excclusion.html', to: './access_excclusion.html' }
+      ])
     ],
     optimization: {
       minimizer: [new UglifyJsPlugin()]
