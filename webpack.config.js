@@ -97,7 +97,6 @@ if (process.env.NODE_ENV === 'production') {
         minimize: true
       })
     ])
-  }
 
   const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
   module.exports = {
