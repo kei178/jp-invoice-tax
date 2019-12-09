@@ -1,18 +1,35 @@
 # jp-invoice-tax
 
-> A Vue.js project
+This app calculates the expected increase of the after-tax net income for Japanese sole proprietors by becoming Taxable Business in Consumption Tax after October 2023 when Invoice System starts.
 
-## Build Setup
+## Requirements
 
-``` bash
-# install dependencies
-npm install
+- [Git](https://git-scm.com/)
+- [Docker](https://www.docker.com/)
+- [docker-compose](https://docs.docker.com/compose/)
 
-# serve with hot reload at localhost:8080
-npm run dev
+## Running
 
-# build for production with minification
-npm run build
+```
+docker-compose up
 ```
 
-For detailed explanation on how things work, consult the [docs for vue-loader](http://vuejs.github.io/vue-loader).
+You can access the API server at `http://localhost:8080`.
+
+If you change something, execute the following command, instead:
+
+```
+docker-compose up --build
+```
+
+## Shutdown
+
+```
+docker-compose down
+```
+
+## Run test only
+
+```
+docker-compose up test
+```
