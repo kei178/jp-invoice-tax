@@ -147,7 +147,6 @@ export default {
     },
     submitForm() {
       if(confirm('こちらの内容で送信しますか？')) {
-        console.log('honeypot', this.honeypot)
         if(this.isHoneypotEmpty()) this.notifyTelegram()
       }
     },

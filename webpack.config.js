@@ -2,6 +2,7 @@ var path = require('path')
 var webpack = require('webpack')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
 module.exports = env => {
   return {
@@ -81,24 +82,13 @@ module.exports = env => {
         'process.env.NODE_ENV': '"production"',
         'process.env.VUE_APP_TELEGRAM_CHAT_ID': JSON.stringify(env.TELEGRAM_CHAT_ID),
         'process.env.VUE_APP_TELEGRAM_TOKEN': JSON.stringify(env.TELEGRAM_TOKEN)
+      }),
+      new webpack.LoaderOptionsPlugin({
+        minimize: true
       })
-    ]   
-  }
-}
-
-if (process.env.NODE_ENV === 'production') {
-  module.exports.devtool = '#source-map'
-  // http://vue-loader.vuejs.org/en/workflow/production.html
-  module.exports.plugins = (module.exports.plugins || []).concat([
-    new webpack.LoaderOptionsPlugin({
-      minimize: true
-    })
-  ])
-
-  const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-  module.exports = {
+    ],
     optimization: {
-      minimizer: [new UglifyJsPlugin()],
+      minimizer: [new UglifyJsPlugin()]
     }
   }
 }
