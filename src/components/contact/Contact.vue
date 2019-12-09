@@ -147,6 +147,8 @@ export default {
     },
     submitForm() {
       if(confirm('こちらの内容で送信しますか？')) {
+        console('honeypot', this.honeypot)
+        console(process.env.VUE_APP_TELEGRAM_CHAT_ID)
         if(this.isHoneypotEmpty()) this.notifyTelegram()
       }
     },
