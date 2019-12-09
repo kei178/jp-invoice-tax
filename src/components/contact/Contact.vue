@@ -118,7 +118,7 @@ export default {
         message: ''
       },
       isSubmitted: false,
-      honeypot:    false,
+      honeypot:    '',
       validEmail:  true // empty is true
     }
   },
