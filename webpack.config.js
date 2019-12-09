@@ -75,6 +75,14 @@ module.exports = {
     // index.html into dist
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, './index.html')
+    }),
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: '"production"',
+        // Define with CircleCI environment var
+        'VUE_APP_TELEGRAM_CHAT_ID': JSON.stringify(env.TELEGRAM_CHAT_ID),
+        'VUE_APP_TELEGRAM_TOKEN':   JSON.stringify(env.TELEGRAM_TOKEN)
+      }
     })
   ]   
 }
@@ -84,14 +92,6 @@ if (process.env.NODE_ENV === 'production') {
   // http://vue-loader.vuejs.org/en/workflow/production.html
   module.exports.plugins = env => {
     return (module.exports.plugins || []).concat([
-      new webpack.DefinePlugin({
-        'process.env': {
-          NODE_ENV: '"production"',
-          // Define with CircleCI environment var
-          'VUE_APP_TELEGRAM_CHAT_ID': JSON.stringify(env.TELEGRAM_CHAT_ID),
-          'VUE_APP_TELEGRAM_TOKEN':   JSON.stringify(env.TELEGRAM_TOKEN)
-        }
-      }),
       new webpack.LoaderOptionsPlugin({
         minimize: true
       })
