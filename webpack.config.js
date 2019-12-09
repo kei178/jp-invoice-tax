@@ -88,7 +88,7 @@ module.exports = env => {
         minimize: true
       }),
       new CopyWebpackPlugin([
-        { from: './access_excclusion.html', to: './access_excclusion.html' }
+        { from: './access_exclusion.html', to: './access_exclusion.html' }
       ])
     ],
     optimization: {
