@@ -66,7 +66,7 @@
         <div class="indetext">
           <input 
                   type="text"
-                  name="z_zip"
+                  name="terms"
                   v-model="honeypot">
         </div>
       </div>
@@ -148,7 +148,6 @@ export default {
     submitForm() {
       if(confirm('こちらの内容で送信しますか？')) {
         console.log('honeypot', this.honeypot)
-        console.log(process.env.VUE_APP_TELEGRAM_CHAT_ID)
         if(this.isHoneypotEmpty()) this.notifyTelegram()
       }
     },
