@@ -65,8 +65,8 @@
         </div>
         <div class="indetext">
           <input 
-                  name="z_zip"
                   type="text"
+                  name="z_zip"
                   v-model="honeypot">
         </div>
       </div>
@@ -135,9 +135,6 @@ export default {
              "\n" + this.contactData.email +
              "\n件名: " + this.contactData.subject +
              "\n" + this.contactData.message           
-    },
-    isHoneypotEmpty() {
-      return this.honeypot == ''
     }
   },
   methods: {
@@ -145,9 +142,12 @@ export default {
       const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
       this.validEmail = this.contactData.email == '' || re.test(this.contactData.email)
     },
+    isHoneypotEmpty() {
+      return this.honeypot === ''
+    },
     submitForm() {
-      if(confirm('こちらの内容で送信しますか？') && this.isHoneypotEmpty) {
-        this.notifyTelegram()
+      if(confirm('こちらの内容で送信しますか？')) {
+        if(this.isHoneypotEmpty()) this.notifyTelegram()
       }
     },
     notifyTelegram() {
