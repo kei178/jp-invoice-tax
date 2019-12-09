@@ -23,7 +23,7 @@
             <div class="label">① - {{ minResultNum }}</div>
           </div>
           <p>
-            年収減10%
+            年収減9.1%
             <span v-show="sales > 0">
               <i class="long arrow alternate small right icon"></i>{{ incomeCutRate }}%
             </span> 
